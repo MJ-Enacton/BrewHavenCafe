@@ -99,6 +99,15 @@ menuBtn.addEventListener("click", () => {
   links.classList.toggle("show");
 });
 
+document.addEventListener("click", (e) => {
+  if (
+    !links.contains(e.target) &&
+    !menuBtn.contains(e.target)
+  ) {
+    links.classList.remove("show");
+  }
+});
+
 const gridImages = document.querySelectorAll(".grid-imgs");
 
 gridImages.forEach((img) => {
