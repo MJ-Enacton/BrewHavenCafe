@@ -12,12 +12,10 @@ html {
 body {
   overflow-x: hidden;
   font-family: Arial, Helvetica, sans-serif;
-  background-image: linear-gradient(
-    to right,
-    rgb(242, 215, 223),
-    rgb(237, 218, 185),
-    rgb(242, 215, 223)
-  );
+  background-image: linear-gradient(to right,
+      rgb(242, 215, 223),
+      rgb(237, 218, 185),
+      rgb(242, 215, 223));
 }
 
 main {
@@ -49,6 +47,7 @@ nav {
   font-size: 2rem;
   font-weight: bold;
   color: #3f2a20;
+  text-decoration: none;
 }
 
 #links {
@@ -544,6 +543,7 @@ nav {
 }
 
 @media (max-width: 1024px) {
+
   #con-form input,
   #con-form textarea {
     width: 90%;
