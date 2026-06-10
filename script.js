@@ -87,7 +87,13 @@ const faqItems = document.querySelectorAll(".faq-item");
 faqItems.forEach((item) => {
   const button = item.querySelector(".faq-question");
 
+
   button.addEventListener("click", () => {
+    // faqItems.forEach((f) => {
+    //   if (f !== item) {
+    //     f.classList.remove("active");
+    //   }
+    // });
     item.classList.toggle("active");
   });
 });
@@ -107,7 +113,6 @@ document.addEventListener("click", (e) => {
     links.classList.remove("show");
   }
 });
-
 const gridImages = document.querySelectorAll(".grid-imgs");
 
 gridImages.forEach((img) => {
