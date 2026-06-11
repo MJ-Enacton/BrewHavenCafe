@@ -409,6 +409,26 @@ nav {
     width: 8px;
     height: 8px;
   }
+
+  .home-con {
+    margin-bottom: 50px
+  }
+
+  #Gallery {
+    padding: 50px 0
+  }
+
+  #Menu {
+    padding: 50px 0;
+  }
+
+  #FAQ {
+    padding: 50px 0;
+  }
+
+  #Contact {
+    padding: 50px 0;
+  }
 }
 
 .dot:nth-of-type(1) {
