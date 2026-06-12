@@ -133,7 +133,7 @@ header nav>button {
   align-items: center;
   gap: 50px;
   flex-wrap: wrap;
-  padding-top: 120px;
+  padding-top: 90px;
 }
 
 .hero-content {
@@ -141,10 +141,24 @@ header nav>button {
   min-width: 280px;
 }
 
-.tagline {
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-family: cursive;
+.hero-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--order-btn-bg-color);
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 7vw, 5rem);
+  line-height: 1.1;
   color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+.hero-title span {
+  display: block;
+  color: var(--order-btn-bg-color);
 }
 
 .hero-desc {
@@ -192,6 +206,30 @@ header nav>button {
   color: var(--bg-white);
 }
 
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-stats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stats h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--order-btn-bg-color);
+  margin-bottom: 5px;
+}
+
+.hero-stats p {
+  font-size: 0.95rem;
+  color: var(--item-desc);
+}
+
 .img-home-con {
   flex: 1;
   min-width: 280px;
@@ -204,6 +242,22 @@ header nav>button {
   width: 100%;
   max-width: 600px;
   height: auto;
+}
+
+@media (max-width: 768px) {
+  .hero-stats {
+    justify-content: center;
+    gap: 25px;
+    text-align: center;
+  }
+
+  .hero-stats h3 {
+    font-size: 1.5rem;
+  }
+
+  .hero-stats p {
+    font-size: 0.85rem;
+  }
 }
 
 /* ================= SECTION HEADINGS ================= */
@@ -493,7 +547,6 @@ header nav>button {
   border-radius: 25px;
 }
 
-/* Updated logic for Task 5 */
 .carousel>img {
   position: absolute;
   top: 0;
