@@ -236,7 +236,7 @@ function openLightbox(startIndex) {
 
   const counter = document.createElement("div");
   counter.className = "lightbox-counter";
-  
+
   const closeBtn = document.createElement("span");
   closeBtn.innerHTML = "&times;";
   closeBtn.className = "lightbox-close";
@@ -313,7 +313,7 @@ function openLightbox(startIndex) {
   document.addEventListener("keydown", handleKeyDown);
 
   const originalRemove = lightbox.remove;
-  lightbox.remove = function() {
+  lightbox.remove = function () {
     document.removeEventListener("keydown", handleKeyDown);
     originalRemove.call(lightbox);
   };

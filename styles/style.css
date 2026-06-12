@@ -335,7 +335,7 @@ header nav>button {
   gap: 20px;
 }
 
-.gal-grid > img {
+.gal-grid>img {
   width: 100%;
   height: 300px;
   object-fit: cover;
@@ -344,7 +344,7 @@ header nav>button {
   transition: 0.3s;
 }
 
-.gal-grid > img:hover {
+.gal-grid>img:hover {
   transform: scale(1.03);
 }
 
@@ -364,7 +364,8 @@ header nav>button {
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(15, 10, 8, 0.94); /* Rich dark brown-black overlay */
+  background: rgba(15, 10, 8, 0.94);
+  /* Rich dark brown-black overlay */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -375,7 +376,9 @@ header nav>button {
 }
 
 @keyframes fadeInLightbox {
-  to { opacity: 1; }
+  to {
+    opacity: 1;
+  }
 }
 
 .lightbox-container {
@@ -486,7 +489,7 @@ header nav>button {
 }
 
 /* Updated logic for Task 5 */
-.carousel > img {
+.carousel>img {
   position: absolute;
   top: 0;
   left: 0;
@@ -498,13 +501,13 @@ header nav>button {
   width: 100%;
 }
 
-.carousel > img.active {
+.carousel>img.active {
   width: 75%;
   z-index: 2;
   opacity: 1;
 }
 
-.carousel > img.next-slide {
+.carousel>img.next-slide {
   width: 100%;
   z-index: 1;
   opacity: 1;
@@ -567,7 +570,7 @@ header nav>button {
     height: 300px;
   }
 
-  .carousel > img {
+  .carousel>img {
     height: 300px;
   }
 }
@@ -611,11 +614,15 @@ header nav>button {
   line-height: 1.7;
 }
 
-.active-faq {
+.active-faq .faq-answer {
   max-height: 300px;
 }
 
-.active-faq>button>span {
+.icon {
+  transition: transform 0.3s ease;
+}
+
+.active-faq .icon {
   transform: rotate(45deg);
 }
 
@@ -666,8 +673,8 @@ header nav>button {
 
 @media (max-width: 1024px) {
 
-  .order-form > input:not([type="submit"]),
-  .order-form > textarea {
+  .order-form>input:not([type="submit"]),
+  .order-form>textarea {
     width: 90%;
   }
 }
@@ -828,20 +835,20 @@ textarea {
   color: var(--text-dark);
 }
 
-.modal-content > img {
+.modal-content>img {
   width: 100%;
   height: 250px;
   object-fit: cover;
   border-radius: 15px;
 }
 
-.modal-info > h3 {
+.modal-info>h3 {
   color: var(--text-dark);
   font-size: 1.8rem;
   margin-bottom: 10px;
 }
 
-.modal-info > p:first-of-type {
+.modal-info>p:first-of-type {
   color: var(--item-desc);
   margin-bottom: 15px;
 }
