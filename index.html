@@ -1,12 +1,14 @@
 <html>
-  <head>
-    <title>Local Business Website</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header>
-      <!-- <nav>
+
+<head>
+  <title>Local Business Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles/style.css" />
+</head>
+
+<body>
+  <header>
+    <!-- <nav>
         <p>ABCD</p>
         <ul>
           <li><a href="#Home">Home</a></li>
@@ -16,388 +18,169 @@
           <li><a href="#Contact">Contact</a></li>
         </ul>
       </nav> -->
-      <nav>
-        <div><a href="#Home" id="heading">🍵 Brew Haven</a></div>
-        <ul id="links">
-          <li><a href="#Home">Home</a></li>
-          <li><a href="#Menu">Menu</a></li>
-          <li><a href="#Gallery">Gallery</a></li>
-          <li><a href="#FAQ">FAQ</a></li>
-          <li><a href="#Contact">Contact</a></li>
-        </ul>
-        <button id="link-btn">&#9776;</button>
-      </nav>
-    </header>
-    <main>
-      <section id="Home">
-        <div class="home-con">
-          <div id="hero-content">
-            <p class="tagline">Sip,</p>
-            <p class="tagline">Smile,</p>
-            <p class="tagline">Repeat.</p>
-          </div>
-          <div class="img-home-con">
-            <img id="hero-img" src="./assets/Coffee-header.png" height="750" />
-          </div>
-        </div>
-      </section>
-      <section id="Menu">
-        <div class="menu-head">
-          <p>Our Menu</p>
-        </div>
-        <div id="menu-main-cont">
-          <div class="menu-category">
-            <h2 class="category-title">Hot Coffee</h2>
-            <div class="category-grid">
-              <div class="item-cont">
-                <img src="./assets/coffee1.jpg" alt="Espresso" />
-                <div class="content">
-                  <p class="item-name">Espresso</p>
-
-                  <p class="item-desc">
-                    Rich and bold espresso shot with intense aroma.
-                  </p>
-
-                  <div class="bottom-row">
-                    <p class="price">₹110</p>
-
-                    <button class="order-btn">Order</button>
-                  </div>
-                </div>
-              </div>
-              <div class="item-cont">
-                <img src="./assets/coffee1.jpg" alt="Cappuccino" />
-
-                <div class="content">
-                  <p class="item-name">Cappuccino</p>
-
-                  <p class="item-desc">
-                    Creamy milk foam with rich espresso blend.
-                  </p>
-
-                  <div class="bottom-row">
-                    <p class="price">₹160</p>
-
-                    <button class="order-btn">Order</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="menu-category">
-            <h2 class="category-title">Cold Coffee</h2>
-
-            <div class="category-grid">
-              <div class="item-cont">
-                <img src="./assets/cold_coffee.jpg" alt="Classic Cold Coffee" />
-
-                <div class="content">
-                  <p class="item-name">Classic Cold Coffee</p>
-
-                  <p class="item-desc">
-                    Chilled coffee blended with milk and ice cream.
-                  </p>
-
-                  <div class="bottom-row">
-                    <p class="price">₹180</p>
-
-                    <button class="order-btn">Order</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item-cont">
-                <img src="./assets/cold_coffee.jpg" alt="Chocolate Frappe" />
-
-                <div class="content">
-                  <p class="item-name">Chocolate Frappe</p>
-
-                  <p class="item-desc">
-                    Chocolate blended frappe topped with whipped cream.
-                  </p>
-
-                  <div class="bottom-row">
-                    <p class="price">₹220</p>
-
-                    <button class="order-btn">Order</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-category">
-            <h2 class="category-title">Signature Specials</h2>
-
-            <div class="category-grid">
-              <div class="item-cont">
-                <img src="./assets/Coffee-header.png" alt="Hazelnut Latte" />
-
-                <div class="content">
-                  <p class="item-name">Hazelnut Latte</p>
-
-                  <p class="item-desc">
-                    Smooth latte infused with roasted hazelnut flavor.
-                  </p>
-
-                  <div class="bottom-row">
-                    <p class="price">₹240</p>
-
-                    <button class="order-btn">Order</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item-cont">
-                <img src="./assets/Coffee-header.png" alt="Mocha Delight" />
-
-                <div class="content">
-                  <p class="item-name">Mocha Delight</p>
-
-                  <p class="item-desc">
-                    Espresso mixed with dark chocolate and steamed milk.
-                  </p>
-
-                  <div class="bottom-row">
-                    <p class="price">₹260</p>
-
-                    <button class="order-btn">Order</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-category">
-            <h2 class="category-title">Desserts</h2>
-
-            <div class="category-grid">
-              <div class="item-cont">
-                <img src="./assets/coffee1.jpg" alt="Chocolate Brownie" />
-
-                <div class="content">
-                  <p class="item-name">Chocolate Brownie</p>
-
-                  <p class="item-desc">
-                    Warm fudgy brownie served with chocolate drizzle.
-                  </p>
-
-                  <div class="bottom-row">
-                    <p class="price">₹140</p>
-
-                    <button class="order-btn">Order</button>
-                  </div>
-                </div>
-              </div>
-
-              <div class="item-cont">
-                <img src="./assets/coffee1.jpg" alt="Cheesecake" />
-
-                <div class="content">
-                  <p class="item-name">Blueberry Cheesecake</p>
-
-                  <p class="item-desc">
-                    Creamy cheesecake topped with blueberry sauce.
-                  </p>
-
-                  <div class="bottom-row">
-                    <p class="price">₹210</p>
-
-                    <button class="order-btn">Order</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <nav>
+      <div><a href="#Home" id="heading">🍵 Brew Haven</a></div>
+      <ul id="links">
+        <li><a href="#Home">Home</a></li>
+        <li><a href="#Menu">Menu</a></li>
+        <li><a href="#Gallery">Gallery</a></li>
+        <li><a href="#FAQ">FAQ</a></li>
+        <li><a href="#Contact">Contact</a></li>
+      </ul>
+      <button id="link-btn">&#9776;</button>
+    </nav>
+  </header>
+  <main class="container">
+    <section id="Home">
+      <div class="hero-container">
+        <div class="hero-content">
+          <p class="tagline">Sip,</p>
+          <p class="tagline">Smile,</p>
+          <p class="tagline">Repeat.</p>
+          <p class="hero-desc">
+            Welcome to Brew Haven — where every cup is crafted with passion.
+            From bold espressos to creamy lattes, we bring you the finest
+            artisanal coffee experience in town.
+          </p>
+          <div class="hero-cta">
+            <a href="#Menu" class="cta-btn cta-primary">Explore Menu</a>
+            <a href="#Gallery" class="cta-btn cta-secondary">View Gallery</a>
           </div>
         </div>
-      </section>
-
-      <section id="Gallery">
-        <div class="menu-head">
-          <p>Our Gallery</p>
+        <div class="img-home-con">
+          <img class="hero-img" src="./assets/Coffee-header.png" />
         </div>
-        <div id="gal-grid">
-          <img
-            class="grid-imgs"
-            src="./assets/gettyimages-1467739359-612x612.jpg"
-          />
-          <img
-            class="grid-imgs"
-            src="./assets/a-black-and-white-sign-that-says-cafe-photo.jpg"
-          />
-          <img class="grid-imgs" src="./assets/Ambiance.jpg" />
-          <img class="grid-imgs" src="./assets/cafe-interior-design.jpg" />
-          <img class="grid-imgs" src="./assets/Coffee-food.jpg" />
-          <img class="grid-imgs" src="./assets/coffee_shop.jpg" />
-        </div>
-        <div id="carousel-cont">
-          <div class="carousel">
-            <img class="slide active" src="./assets/black_coffee.jpg" />
-            <img class="slide" src="./assets/coffee_shop.jpg" />
-            <img class="slide" src="./assets/coffee1.jpg" />
-            <img class="slide" src="./assets/Ambiance.jpg" />
-
-            <button
-              class="dot dot-active"
-              onclick="setandshowindex(0)"
-            ></button>
-            <button class="dot" onclick="setandshowindex(1)"></button>
-            <button class="dot" onclick="setandshowindex(2)"></button>
-            <button class="dot" onclick="setandshowindex(3)"></button>
-
-            <button class="car-btn prev" onclick="prev()">&larr;</button>
-            <button class="car-btn next" onclick="next()">&rarr;</button>
-          </div>
-        </div>
-      </section>
-
-      <section id="FAQ">
-        <div class="menu-head">
-          <p>FAQ Section</p>
-        </div>
-        <div class="faq-container">
-          <div class="faq-item">
-            <button class="faq-question">
-              What is the difference between an espresso, a latte, and a
-              cappuccino?
-              <span class="icon">+</span>
-            </button>
-
-            <div class="faq-answer">
-              <p>
-                An espresso is a concentrated shot of pure coffee. A latte has a
-                high ratio of steamed milk to espresso, while a cappuccino
-                features equal parts espresso, steamed milk, and airy milk foam.
-              </p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question">
-              Do you sell whole beans for home brewing?
-              <span class="icon">+</span>
-            </button>
-
-            <div class="faq-answer">
-              <p>
-                Yes, we sell our freshly roasted coffee beans in-store. Ask your
-                barista for grind-size recommendations depending on your home
-                brewing equipment.
-              </p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question">
-              Can I customize the sweetness of my coffee?
-              <span class="icon">+</span>
-            </button>
-
-            <div class="faq-answer">
-              <p>
-                Absolutely. You can request half the amount of syrup, specify
-                the number of pumps, or ask for entirely sugar-free syrup
-                alternatives.
-              </p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question">
-              Where do your coffee beans come from?
-              <span class="icon">+</span>
-            </button>
-
-            <div class="faq-answer">
-              <p>
-                We source our specialty-grade Arabica coffee beans directly from
-                ethical farms in regions like Karnataka (India), Colombia, and
-                Ethiopia.
-              </p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question">
-              Do you sell whole-bean coffee for home brewing?
-              <span class="icon">+</span>
-            </button>
-
-            <div class="faq-answer">
-              <p>
-                Absolutely! We sell bags of our freshly roasted whole beans. If
-                you have a preferred brewing method (e.g., French press,
-                pour-over, espresso), our baristas can grin
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="Contact">
-        <div id="con-cont">
-          <div id="con-cont-head">
-            <p id="con-head">Contact form</p>
-            <p id="con-sec">
-              Help us to know you, And let us know if you have any queries or
-              feedback for us
-            </p>
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.127791224259!2d72.75733507597197!3d21.147312083694786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d8d96d2b733%3A0x1a5232e28e4094e4!2sEnactOn%20Technologies%20Private%20Limited!5e0!3m2!1sen!2sin!4v1779338105801!5m2!1sen!2sin"
-              width="600"
-              height="450"
-              style="border: 0; border-radius: 15px"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              id="gmap"
-            ></iframe>
-          </div>
-          <form id="con-form" autocomplete="off" onsubmit="validate(event)">
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Enter your name..."
-            />
-            <p id="name-err"></p>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Enter your email..."
-            />
-            <p id="email-err"></p>
-            <textarea
-              name="message"
-              id="message"
-              placeholder="Enter message here."
-              rows="7"
-              cols="30"
-            ></textarea>
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
-      </section>
-    </main>
-    <footer>
-      <div id="footer-left">
-        <p id="footer-heading">🍵 Brew Haven</p>
-        <p id="footer-desc">
-          We craft every cup with precision, roasting our premium beans in-house
-          to unlock bold, unique flavors. Elevate your morning routine with our
-          expertly poured espresso and artisanal seasonal menus.
-        </p>
       </div>
-      <div id="footer-pages">
-        <p>Pages</p>
+    </section>
 
-        <a href="#Home">Home page</a>
-        <a href="#Menu">Menu page</a>
-        <a href="#Gallery">Gallery Page</a>
-        <a href="#Contact">Contact page</a>
+    <section id="Menu" class="menu-section">
+      <div class="section-head">
+        <h2 class="section-heading">Our Menu</h2>
+        <p class="section-subheading">Handcrafted drinks & treats made fresh daily</p>
       </div>
-    </footer>
-  </body>
-  <script src="./script.js"></script>
+      <div id="menu-main-cont"></div>
+    </section>
+
+    <section id="Gallery" class="gallery-section">
+      <div class="section-head">
+        <h2 class="section-heading">Our Gallery</h2>
+        <p class="section-subheading">A glimpse into the Brew Haven experience</p>
+      </div>
+      <div id="gal-grid" class="gal-grid"></div>
+
+      <div id="carousel-cont" class="carousel-container">
+        <div class="carousel" id="carousel">
+          <img class="slide active" src="./assets/black_coffee.jpg" />
+          <img class="slide" src="./assets/coffee_shop.jpg" />
+          <img class="slide" src="./assets/coffee1.jpg" />
+          <img class="slide" src="./assets/Ambiance.jpg" />
+
+          <button class="dot dot-active" onclick="setandshowindex(0)"></button>
+          <button class="dot" onclick="setandshowindex(1)"></button>
+          <button class="dot" onclick="setandshowindex(2)"></button>
+          <button class="dot" onclick="setandshowindex(3)"></button>
+
+          <button class="car-btn prev" onclick="prev()">&larr;</button>
+          <button class="car-btn next" onclick="next()">&rarr;</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="FAQ" class="faq-section">
+      <div class="section-head">
+        <h2 class="section-heading">FAQ Section</h2>
+        <p class="section-subheading">Got questions? We've got answers</p>
+      </div>
+      <div class="faq-container" id="faq-container"></div>
+    </section>
+
+    <section id="Contact" class="contact-section">
+      <div class="section-head">
+        <h2 class="section-heading">Get In Touch</h2>
+        <p class="section-subheading">We'd love to hear from you</p>
+      </div>
+
+      <div class="contact-cont">
+        <div class="contact-info-hours">
+          <div class="contact-info-card">
+            <h3 class="contact-info-title">Contact Information</h3>
+            <div class="contact-info-item">
+              <span class="contact-info-icon">📞</span>
+              <div>
+                <p class="contact-info-label">Phone</p>
+                <p class="contact-info-value">(555) 123-4567</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <span class="contact-info-icon">✉️</span>
+              <div>
+                <p class="contact-info-label">Email</p>
+                <p class="contact-info-value">hello@brewhaven.example</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <span class="contact-info-icon">📍</span>
+              <div>
+                <p class="contact-info-label">Address</p>
+                <p class="contact-info-value">123 Coffee Street, Brewville, CA 94123</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-hours-card">
+            <h3 class="contact-hours-title">Hours</h3>
+            <div class="contact-hours-row">
+              <span class="contact-hours-day">Monday - Friday</span>
+              <span class="contact-hours-time">6:00 AM - 8:00 PM</span>
+            </div>
+            <div class="contact-hours-row">
+              <span class="contact-hours-day">Saturday</span>
+              <span class="contact-hours-time">7:00 AM - 9:00 PM</span>
+            </div>
+            <div class="contact-hours-row">
+              <span class="contact-hours-day">Sunday</span>
+              <span class="contact-hours-time">8:00 AM - 6:00 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <form id="con-form" class="order-form" autocomplete="off" onsubmit="validate(event)">
+          <input type="text" name="name" id="name" placeholder="Enter your name..." />
+          <p id="name-err"></p>
+          <input type="email" name="email" id="email" placeholder="Enter your email..." />
+          <p id="email-err"></p>
+          <textarea name="message" id="message" placeholder="Enter message here." rows="7" cols="30"></textarea>
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
+
+      <div class="contact-map-wrapper">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.127791224259!2d72.75733507597197!3d21.147312083694786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d8d96d2b733%3A0x1a5232e28e4094e4!2sEnactOn%20Technologies%20Private%20Limited!5e0!3m2!1sen!2sin!4v1779338105801!5m2!1sen!2sin"
+          width="600" height="450" style="border: 0; border-radius: 15px" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" class="contact-map"></iframe>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div id="footer-left">
+      <p id="footer-heading">🍵 Brew Haven</p>
+      <p id="footer-desc">
+        We craft every cup with precision, roasting our premium beans in-house
+        to unlock bold, unique flavors. Elevate your morning routine with our
+        expertly poured espresso and artisanal seasonal menus.
+      </p>
+    </div>
+    <div id="footer-pages">
+      <p>Pages</p>
+      <a href="#Home">Home page</a>
+      <a href="#Menu">Menu page</a>
+      <a href="#Gallery">Gallery Page</a>
+      <a href="#Contact">Contact page</a>
+    </div>
+  </footer>
+
+  <script src="./scripts/script.js"></script>
+</body>
+
 </html>
