@@ -133,10 +133,11 @@ header nav>button {
   align-items: center;
   gap: 50px;
   flex-wrap: wrap;
-  padding-top: 90px;
+  padding-top: 120px;
 }
 
 .hero-content {
+  padding: 10px;
   flex: 1;
   min-width: 280px;
 }
