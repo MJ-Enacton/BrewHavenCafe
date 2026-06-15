@@ -3,6 +3,10 @@
 <head>
   <title>Local Business Website</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="./styles/style.css" />
 </head>
 
@@ -19,7 +23,7 @@
         </ul>
       </nav> -->
     <nav>
-      <div><a href="#Home" id="heading"><img src="./assets/logo.png" alt="logo"></a></div>
+      <div><a href="#Home" id="heading"><img src="./assets/logo.png" height="70px" alt="logo"></a></div>
       <ul id="links">
         <li><a href="#Home">Home</a></li>
         <li><a href="#Menu">Menu</a></li>
@@ -30,175 +34,217 @@
       <button id="link-btn">&#9776;</button>
     </nav>
   </header>
-  <main class="container">
+  <main>
     <section id="Home">
-      <div class="hero-container">
-        <div class="hero-content">
-          <p class="hero-label"> Artistic Coffee & Fresh Bakes</p>
+      <div class="container">
+        <div class="hero-container">
+          <div class="hero-content">
+            <p class="hero-label"> Artistic Coffee & Fresh Bakes</p>
 
-          <h1 class="hero-title">
-            Your Perfect Coffee
-            <span>Starts Here</span>
-          </h1>
+            <h1 class="hero-title">
+              Your Perfect Coffee
+              <span>Starts Here</span>
+            </h1>
 
-          <p class="hero-desc">
-            Welcome to Brew Haven — where every cup is crafted with passion.
-            From bold espressos to creamy lattes, we bring you the finest
-            artisanal coffee experience in town.
-          </p>
-          <div class="hero-cta">
-            <a href="#Menu" class="cta-btn cta-primary">Explore Menu</a>
-            <a href="#Gallery" class="cta-btn cta-secondary">View Gallery</a>
+            <p class="hero-desc">
+              Welcome to Brew Haven — where every cup is crafted with passion.
+              From bold espressos to creamy lattes, we bring you the finest
+              artisanal coffee experience in town.
+            </p>
+            <div class="hero-cta">
+              <a href="#Menu" class="cta-btn cta-primary">Explore Menu</a>
+              <a href="#Gallery" class="cta-btn cta-secondary">View Gallery</a>
+            </div>
+            <div class="hero-stats">
+              <div>
+                <h3>50+</h3>
+                <p>Coffee Varieties</p>
+              </div>
+
+              <div>
+                <h3>1000+</h3>
+                <p>Happy Customers</p>
+              </div>
+
+              <div>
+                <h3>4.9★</h3>
+                <p>Average Rating</p>
+              </div>
+            </div>
           </div>
-          <div class="hero-stats">
-            <div>
-              <h3>50+</h3>
-              <p>Coffee Varieties</p>
-            </div>
-
-            <div>
-              <h3>1000+</h3>
-              <p>Happy Customers</p>
-            </div>
-
-            <div>
-              <h3>4.9★</h3>
-              <p>Average Rating</p>
-            </div>
+          <div class="img-home-con">
+            <img class="hero-img" src="./assets/Coffee-header.png" />
           </div>
-        </div>
-        <div class="img-home-con">
-          <img class="hero-img" src="./assets/Coffee-header.png" />
         </div>
       </div>
     </section>
 
     <section id="Menu" class="menu-section">
-      <div class="section-head">
-        <h2 class="section-heading">Our Menu</h2>
-        <p class="section-subheading">Handcrafted drinks & treats made fresh daily</p>
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-heading">Our Menu</h2>
+          <p class="section-subheading">Handcrafted drinks & treats made fresh daily</p>
+        </div>
+        <div id="menu-main-cont"></div>
       </div>
-      <div id="menu-main-cont"></div>
     </section>
 
     <section id="Gallery" class="gallery-section">
-      <div class="section-head">
-        <h2 class="section-heading">Our Gallery</h2>
-        <p class="section-subheading">A glimpse into the Brew Haven experience</p>
-      </div>
-      <div id="gal-grid" class="gal-grid"></div>
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-heading">Our Gallery</h2>
+          <p class="section-subheading">A glimpse into the Brew Haven experience</p>
+        </div>
+        <div id="gal-grid" class="gal-grid"></div>
 
-      <div id="carousel-cont" class="carousel-container">
-        <div class="carousel" id="carousel">
-          <img class="slide active" src="./assets/black_coffee.jpg" />
-          <img class="slide" src="./assets/coffee_shop.jpg" />
-          <img class="slide" src="./assets/coffee1.jpg" />
-          <img class="slide" src="./assets/Ambiance.jpg" />
+        <div id="carousel-cont" class="carousel-container">
+          <div class="carousel" id="carousel">
+            <img class="slide active" src="./assets/black_coffee.jpg" />
+            <img class="slide" src="./assets/coffee_shop.jpg" />
+            <img class="slide" src="./assets/coffee1.jpg" />
+            <img class="slide" src="./assets/Ambiance.jpg" />
 
-          <button class="dot dot-active" onclick="setandshowindex(0)"></button>
-          <button class="dot" onclick="setandshowindex(1)"></button>
-          <button class="dot" onclick="setandshowindex(2)"></button>
-          <button class="dot" onclick="setandshowindex(3)"></button>
+            <button class="dot dot-active" onclick="setandshowindex(0)"></button>
+            <button class="dot" onclick="setandshowindex(1)"></button>
+            <button class="dot" onclick="setandshowindex(2)"></button>
+            <button class="dot" onclick="setandshowindex(3)"></button>
 
-          <button class="car-btn prev" onclick="prev()">&larr;</button>
-          <button class="car-btn next" onclick="next()">&rarr;</button>
+            <button class="car-btn prev" onclick="prev()">&larr;</button>
+            <button class="car-btn next" onclick="next()">&rarr;</button>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="FAQ" class="faq-section">
-      <div class="section-head">
-        <h2 class="section-heading">FAQ Section</h2>
-        <p class="section-subheading">Got questions? We've got answers</p>
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-heading">FAQ Section</h2>
+          <p class="section-subheading">Got questions? We've got answers</p>
+        </div>
+        <div class="faq-container" id="faq-container"></div>
       </div>
-      <div class="faq-container" id="faq-container"></div>
     </section>
 
     <section id="Contact" class="contact-section">
-      <div class="section-head">
-        <h2 class="section-heading">Get In Touch</h2>
-        <p class="section-subheading">We'd love to hear from you</p>
-      </div>
-
-      <div class="contact-cont">
-        <div class="contact-info-hours">
-          <div class="contact-info-card">
-            <h3 class="contact-info-title">Contact Information</h3>
-            <div class="contact-info-item">
-              <span class="contact-info-icon">📞</span>
-              <div>
-                <p class="contact-info-label">Phone</p>
-                <p class="contact-info-value">(555) 123-4567</p>
-              </div>
-            </div>
-            <div class="contact-info-item">
-              <span class="contact-info-icon">✉️</span>
-              <div>
-                <p class="contact-info-label">Email</p>
-                <p class="contact-info-value">hello@brewhaven.example</p>
-              </div>
-            </div>
-            <div class="contact-info-item">
-              <span class="contact-info-icon">📍</span>
-              <div>
-                <p class="contact-info-label">Address</p>
-                <p class="contact-info-value">123 Coffee Street, Brewville, CA 94123</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="contact-hours-card">
-            <h3 class="contact-hours-title">Hours</h3>
-            <div class="contact-hours-row">
-              <span class="contact-hours-day">Monday - Friday</span>
-              <span class="contact-hours-time">6:00 AM - 8:00 PM</span>
-            </div>
-            <div class="contact-hours-row">
-              <span class="contact-hours-day">Saturday</span>
-              <span class="contact-hours-time">7:00 AM - 9:00 PM</span>
-            </div>
-            <div class="contact-hours-row">
-              <span class="contact-hours-day">Sunday</span>
-              <span class="contact-hours-time">8:00 AM - 6:00 PM</span>
-            </div>
-          </div>
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-heading">Get In Touch</h2>
+          <p class="section-subheading">We'd love to hear from you</p>
         </div>
 
-        <form id="con-form" class="order-form" autocomplete="off" onsubmit="validate(event)">
-          <input type="text" name="name" id="name" placeholder="Enter your name..." />
-          <p id="name-err"></p>
-          <input type="email" name="email" id="email" placeholder="Enter your email..." />
-          <p id="email-err"></p>
-          <textarea name="message" id="message" placeholder="Enter message here." rows="7" cols="30"></textarea>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
+        <div class="contact-cont">
+          <div class="contact-info-hours">
+            <div class="contact-info-card">
+              <h3 class="contact-info-title">Contact Information</h3>
+              <div class="contact-info-item">
+                <span class="contact-info-icon">📞</span>
+                <div>
+                  <p class="contact-info-label">Phone</p>
+                  <p class="contact-info-value">(555) 123-4567</p>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <span class="contact-info-icon">✉️</span>
+                <div>
+                  <p class="contact-info-label">Email</p>
+                  <p class="contact-info-value">hello@brewhaven.example</p>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <span class="contact-info-icon">📍</span>
+                <div>
+                  <p class="contact-info-label">Address</p>
+                  <p class="contact-info-value">123 Coffee Street, Brewville, CA 94123</p>
+                </div>
+              </div>
+            </div>
 
-      <div class="contact-map-wrapper">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.127791224259!2d72.75733507597197!3d21.147312083694786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d8d96d2b733%3A0x1a5232e28e4094e4!2sEnactOn%20Technologies%20Private%20Limited!5e0!3m2!1sen!2sin!4v1779338105801!5m2!1sen!2sin"
-          width="600" height="450" style="border: 0; border-radius: 15px" allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade" class="contact-map"></iframe>
+            <div class="contact-hours-card">
+              <h3 class="contact-hours-title">Hours</h3>
+              <div class="contact-hours-row">
+                <span class="contact-hours-day">Monday - Friday</span>
+                <span class="contact-hours-time">6:00 AM - 8:00 PM</span>
+              </div>
+              <div class="contact-hours-row">
+                <span class="contact-hours-day">Saturday</span>
+                <span class="contact-hours-time">7:00 AM - 9:00 PM</span>
+              </div>
+              <div class="contact-hours-row">
+                <span class="contact-hours-day">Sunday</span>
+                <span class="contact-hours-time">8:00 AM - 6:00 PM</span>
+              </div>
+            </div>
+          </div>
+
+          <form id="con-form" class="order-form" autocomplete="off" onsubmit="validate(event)">
+            <div>
+              <input type="text" name="name" id="name" placeholder="Enter your name..." />
+              <p id="name-err"></p>
+            </div>
+            <div>
+              <input type="email" name="email" id="email" placeholder="Enter your email..." />
+              <p id="email-err"></p>
+            </div>
+            <div>
+              <textarea name="message" id="message" placeholder="Enter message here." rows="7" cols="30"></textarea>
+            </div>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
+
+        <div class="contact-map-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.127791224259!2d72.75733507597197!3d21.147312083694786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04d8d96d2b733%3A0x1a5232e28e4094e4!2sEnactOn%20Technologies%20Private%20Limited!5e0!3m2!1sen!2sin!4v1779338105801!5m2!1sen!2sin"
+            width="600" height="450" style="border: 0; border-radius: 15px" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" class="contact-map"></iframe>
+        </div>
       </div>
     </section>
   </main>
   <footer>
-    <div id="footer-left">
-      <p id="footer-heading"><a href="#Home"><img src="./assets/light_logo.png" alt="logo"></a></p>
-      <p id="footer-desc">
-        We craft every cup with precision, roasting our premium beans in-house
-        to unlock bold, unique flavors. Elevate your morning routine with our
-        expertly poured espresso and artisanal seasonal menus.
+    <div class="footer-brand">
+      <a href="#Home">
+        <img src="./assets/logo.png" height="120" alt="logo">
+      </a>
+
+      <p>
+        We craft every cup with precision, roasting premium beans to deliver
+        unforgettable coffee experiences every day.
       </p>
     </div>
-    <div id="footer-pages">
-      <p>Pages</p>
-      <a href="#Home">Home page</a>
-      <a href="#Menu">Menu page</a>
-      <a href="#Gallery">Gallery Page</a>
-      <a href="#Contact">Contact page</a>
+
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <a href="#Home">Home</a>
+      <a href="#Menu">Menu</a>
+      <a href="#Gallery">Gallery</a>
+      <a href="#FAQ">FAQ</a>
+      <a href="#Contact">Contact</a>
+    </div>
+
+    <div class="footer-contact">
+      <h3>Contact</h3>
+      <p>📍 Surat, Gujarat</p>
+      <p>📞 +91 98765 43210</p>
+      <p>✉️ hello@coffeecorner.com</p>
+    </div>
+
+    <div class="footer-social">
+      <h3>Follow Us</h3>
+
+      <div class="social-icons">
+        <a href="#">📷 Instagram</a>
+        <a href="#">📘 Facebook</a>
+        <a href="#">🐦 X / Twitter</a>
+        <a href="#">💼 LinkedIn</a>
+      </div>
     </div>
   </footer>
+
+  <div class="copyright">
+    © 2026 Coffee Corner. All rights reserved.
+  </div>
 
   <script src="./scripts/script.js"></script>
 </body>

@@ -13,9 +13,9 @@
   --lightbox-bg: rgba(0, 0, 0, 0.8);
   --faq-answer-bg: #fafafa;
   --bg-white: white;
-  --footer-bg: #5c3d2e;
+  --footer-bg: #f3e5d8;
 
-  --primary-font: Arial, Helvetica, sans-serif;
+  --primary-font: 'Bricolage Grotesque', sans-serif;
   --text-dark: #3f2a20;
   --text-black: black;
   --hover-light: #d9b08c;
@@ -52,6 +52,7 @@ body {
 }
 
 /* ================= NAVBAR ================= */
+
 header nav {
   display: flex;
   justify-content: space-between;
@@ -109,19 +110,31 @@ header nav>button {
 
   header nav>ul {
     position: absolute;
-    top: 80px;
-    right: 5%;
-    width: 250px;
-    display: none;
+    top: 100%;
+    left: 0;
+
+    width: 100%;
+
+    display: flex;
     flex-direction: column;
-    background: var(--bg-white);
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    gap: 20px;
+
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+
+    padding: 25px;
+
+    transform: translateY(-20px);
+    opacity: 0;
+    visibility: hidden;
+
+    transition: all 0.3s ease;
   }
 
-  .show {
-    display: flex;
+  header nav>ul.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
 }
 
@@ -133,7 +146,7 @@ header nav>button {
   align-items: center;
   gap: 50px;
   flex-wrap: wrap;
-  padding-top: 120px;
+  padding-top: 50px;
 }
 
 .hero-content {
@@ -281,7 +294,7 @@ header nav>button {
 
 /* ================= MENU ================= */
 .menu-section {
-  padding: 100px 0;
+  padding: 50px 0;
 }
 
 .menu-category {
@@ -289,7 +302,7 @@ header nav>button {
 }
 
 .category-title {
-  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-size: clamp(1.8rem, 2rem, 2.5rem);
   margin-bottom: 30px;
   color: var(--menu-category-title);
 }
@@ -329,12 +342,13 @@ header nav>button {
 }
 
 .item-name {
-  font-size: 1.7rem;
+  font-size: 1.25rem;
   font-weight: bold;
   color: var(--item-name);
 }
 
 .item-desc {
+  font-size: 0.9rem;
   color: var(--item-desc);
   line-height: 1.6;
 }
@@ -386,7 +400,7 @@ header nav>button {
 
 /* ================= GALLERY ================= */
 .gallery-section {
-  padding: 100px 0;
+  padding: 50px 0;
 }
 
 .gal-grid {
@@ -536,6 +550,7 @@ header nav>button {
 }
 
 /* ================= CAROUSEL ================= */
+
 .carousel-container {
   padding-top: 80px;
 }
@@ -561,13 +576,20 @@ header nav>button {
 }
 
 .carousel>img.active {
-  width: 75%;
+  left: 0;
+  width: 70%;
+  height: 100%;
   z-index: 2;
   opacity: 1;
 }
 
 .carousel>img.next-slide {
-  width: 100%;
+  left: 72%;
+  width: 25%;
+  height: 65%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 20px;
   z-index: 1;
   opacity: 1;
 }
@@ -589,7 +611,7 @@ header nav>button {
 }
 
 .next {
-  right: 10px;
+  right: 30%;
 }
 
 .dot {
@@ -636,7 +658,7 @@ header nav>button {
 
 /* ================= FAQ ================= */
 .faq-section {
-  padding: 100px 0;
+  padding: 50px 0;
 }
 
 .faq-item {
@@ -653,7 +675,7 @@ header nav>button {
   background: var(--bg-white);
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-self: start;
   cursor: pointer;
   font-size: 1.2rem;
   font-weight: 600;
@@ -685,9 +707,15 @@ header nav>button {
   transform: rotate(45deg);
 }
 
+@media (max-width: 500px) {
+  .faq-question {
+    font-size: 1rem;
+  }
+}
+
 /* ================= CONTACT ================= */
 .contact-section {
-  padding: 100px 0;
+  padding: 50px 0;
 }
 
 .contact-cont {
@@ -747,6 +775,7 @@ header nav>button {
 
 .contact-info-value {
   font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .contact-hours-row {
@@ -789,7 +818,7 @@ header nav>button {
 .order-form input,
 .order-form textarea {
   width: 100%;
-  padding: 15px 18px;
+  padding: 12px 20px;
   border: none;
   border-radius: 12px;
   background: var(--contact-form-input-bg);
@@ -859,7 +888,7 @@ header nav>button {
 
   .order-form>input:not([type="submit"]),
   .order-form>textarea {
-    width: 90%;
+    width: 100%;
   }
 }
 
@@ -902,47 +931,60 @@ header nav>button {
 /* ================= FOOTER ================= */
 footer {
   background: var(--footer-bg);
-  color: var(--bg-white);
-  padding: 50px 8%;
-  display: flex;
-  justify-content: space-between;
-  gap: 50px;
-  flex-wrap: wrap;
+  padding: 60px 8%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  border-top: 2px solid rgba(75, 46, 46, 0.15);
 }
 
-footer>div:first-of-type,
-footer>div:nth-of-type(2) {
-  flex: 1;
-  min-width: 250px;
-}
-
-footer>div:first-of-type>p:first-of-type {
-  font-size: 2rem;
+footer h3 {
   margin-bottom: 20px;
+  color: var(--text-dark);
 }
 
-footer>div:first-of-type>p:nth-of-type(2) {
+footer p,
+footer a {
+  color: var(--text-dark);
+  text-decoration: none;
   line-height: 1.8;
 }
 
-footer>div:nth-of-type(2) {
+footer a:hover {
+  color: var(--order-btn-bg-color);
+}
+
+.footer-links,
+.footer-contact,
+.footer-social {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-footer>div:nth-of-type(2)>p {
-  font-size: 1.5rem;
-  font-weight: bold;
+.social-icons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-footer>div:nth-of-type(2)>a {
-  color: var(--bg-white);
-  text-decoration: none;
+.copyright {
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-dark);
+  font-size: 0.95rem;
 }
 
-footer>div:nth-of-type(2)>a:hover {
-  color: var(--hover-light);
+@media (max-width: 900px) {
+  footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-brand img {
+    margin: auto;
+  }
 }
 
 textarea {
@@ -995,6 +1037,8 @@ textarea {
   justify-content: center;
   align-items: center;
   z-index: 10000;
+
+  animation: fadeInOverlay 0.3s ease forwards;
 }
 
 .modal-content {
@@ -1008,6 +1052,30 @@ textarea {
   flex-direction: column;
   gap: 20px;
   text-align: center;
+
+  animation: modalPop 0.35s ease forwards;
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .close-modal {
@@ -1133,4 +1201,10 @@ textarea {
 .contact-hours-time {
   font-weight: bold;
   color: var(--text-black);
+}
+
+html.no-scroll,
+body.no-scroll {
+  overflow: hidden;
+  height: 100%;
 }

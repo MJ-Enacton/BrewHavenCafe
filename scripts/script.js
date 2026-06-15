@@ -259,6 +259,7 @@ function openLightbox(startIndex) {
 
   lightbox.appendChild(container);
   document.body.appendChild(lightbox);
+  disableScroll();
 
   function updateLightbox() {
     mainImg.src = galleryGridData[currentIndex];
@@ -315,6 +316,7 @@ function openLightbox(startIndex) {
   const originalRemove = lightbox.remove;
   lightbox.remove = function () {
     document.removeEventListener("keydown", handleKeyDown);
+    enableScroll()
     originalRemove.call(lightbox);
   };
 }
@@ -381,23 +383,44 @@ function attachDynamicEventListeners() {
       `;
 
       document.body.appendChild(modal);
+      disableScroll();
 
-      modal.querySelector(".close-modal").addEventListener("click", () => {
+      modal.querySelector(".close-modal").addEventListener("click", (e) => {
         modal.remove();
+        enableScroll()
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          modal.remove();
+          enableScroll()
+        }
       });
 
       modal.addEventListener("click", (e) => {
         if (e.target === modal) {
           modal.remove();
+          enableScroll()
         }
       });
 
       modal.querySelector(".confirm-order-btn").addEventListener("click", () => {
         alert("Order placed for " + name);
         modal.remove();
+
       });
     });
   });
+}
+
+function disableScroll() {
+  document.documentElement.classList.add("no-scroll");
+  document.body.classList.add("no-scroll");
+}
+
+function enableScroll() {
+  document.documentElement.classList.remove("no-scroll");
+  document.body.classList.remove("no-scroll");
 }
 
 // Initialize
