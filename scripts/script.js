@@ -64,25 +64,39 @@ const faqData = [
 function validate(event) {
   event.preventDefault();
 
-  const nameInput = document.getElementById("name");
+  const firstNameInput = document.getElementById("first_name");
+  const lastNameInput = document.getElementById("last_name");
   const emailInput = document.getElementById("email");
   const messageInput = document.getElementById("message");
 
-  const nameErr = document.getElementById("name-err");
+  const firstNameErr = document.getElementById("first_name-err");
+  const lastNameErr = document.getElementById("last_name-err");
   const emailErr = document.getElementById("email-err");
 
   let isValid = true;
 
-  if (nameInput.value.trim() === "") {
-    nameErr.textContent = "Name cannot be empty.";
-    nameErr.style.color = "var(--error-color)";
-    nameInput.style.borderColor = "var(--error-color)";
-    nameInput.style.borderWidth = "2px";
-    nameInput.style.borderStyle = "solid";
+  if (firstNameInput.value.trim() === "") {
+    firstNameErr.textContent = "First Name cannot be empty.";
+    firstNameErr.style.color = "var(--error-color)";
+    firstNameInput.style.borderColor = "var(--error-color)";
+    firstNameInput.style.borderWidth = "2px";
+    firstNameInput.style.borderStyle = "solid";
     isValid = false;
   } else {
-    nameErr.textContent = "";
-    nameInput.style.borderColor = "";
+    firstNameErr.textContent = "";
+    firstNameInput.style.borderColor = "";
+  }
+
+  if (lastNameInput.value.trim() === "") {
+    lastNameErr.textContent = "Last Name cannot be empty.";
+    lastNameErr.style.color = "var(--error-color)";
+    lastNameInput.style.borderColor = "var(--error-color)";
+    lastNameInput.style.borderWidth = "2px";
+    lastNameInput.style.borderStyle = "solid";
+    isValid = false;
+  } else {
+    lastNameErr.textContent = "";
+    lastNameInput.style.borderColor = "";
   }
 
   if (emailInput.value.trim() === "") {
@@ -114,49 +128,58 @@ function validate(event) {
 // Carousel Logic
 const slides = document.querySelectorAll(".slide");
 const dots = document.querySelectorAll(".dot");
+
 let index = 0;
+let timerId = null;
 
 function showSlide(index) {
   slides.forEach((slide) => {
-    slide.classList.remove("active");
-    slide.classList.remove("next-slide");
+    slide.classList.remove("active", "next-slide");
   });
 
   dots.forEach((dot) => {
     dot.classList.remove("dot-active");
   });
 
-  if (slides.length > 0) {
-    slides[index].classList.add("active");
-    dots[index].classList.add("dot-active");
+  slides[index].classList.add("active");
+  dots[index].classList.add("dot-active");
 
-    let nextIndex = (index + 1) % slides.length;
-    slides[nextIndex].classList.add("next-slide");
-  }
+  const nextIndex = (index + 1) % slides.length;
+  slides[nextIndex].classList.add("next-slide");
+}
+
+function startAutoSlide() {
+  clearInterval(timerId);
+
+  timerId = setInterval(() => {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  }, 5000);
 }
 
 if (slides.length > 0) {
   showSlide(index);
-  setInterval(() => {
-    index = (index + 1) % slides.length;
-    showSlide(index);
-  }, 2000);
+  startAutoSlide();
 }
 
 function setandshowindex(i) {
   index = i;
   showSlide(index);
+  startAutoSlide();
 }
 
 function prev() {
   index = (index - 1 + slides.length) % slides.length;
   showSlide(index);
+  startAutoSlide();
 }
 
 function next() {
   index = (index + 1) % slides.length;
   showSlide(index);
+  startAutoSlide();
 }
+
 
 // Mobile Menu
 const menuBtn = document.getElementById("link-btn");
@@ -259,7 +282,7 @@ function openLightbox(startIndex) {
 
   lightbox.appendChild(container);
   document.body.appendChild(lightbox);
-  disableScroll();
+  document.body.style.overflow = "hidden";
 
   function updateLightbox() {
     mainImg.src = galleryGridData[currentIndex];
@@ -297,6 +320,7 @@ function openLightbox(startIndex) {
   lightbox.addEventListener("click", (e) => {
     if (!container.contains(e.target) || e.target === lightbox) {
       lightbox.remove();
+      document.body.style.overflow = "";
     }
   });
 
@@ -316,8 +340,8 @@ function openLightbox(startIndex) {
   const originalRemove = lightbox.remove;
   lightbox.remove = function () {
     document.removeEventListener("keydown", handleKeyDown);
-    enableScroll()
     originalRemove.call(lightbox);
+    document.body.style.overflow = "";
   };
 }
 
@@ -351,7 +375,7 @@ function attachDynamicEventListeners() {
 
   const gridImages = document.querySelectorAll(".grid-imgs");
   gridImages.forEach((img) => {
-    img.addEventListener("click", () => {
+    img.addEventListener("click", (e) => {
       const startIndex = parseInt(img.getAttribute("data-index") || "0", 10);
       openLightbox(startIndex);
     });
@@ -383,47 +407,38 @@ function attachDynamicEventListeners() {
       `;
 
       document.body.appendChild(modal);
-      disableScroll();
+      document.body.style.overflow = "hidden"
 
-      modal.querySelector(".close-modal").addEventListener("click", (e) => {
+      modal.querySelector(".close-modal").addEventListener("click", () => {
         modal.remove();
-        enableScroll()
+        document.body.style.overflow = ""
       });
 
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           modal.remove();
-          enableScroll()
+          document.body.style.overflow = ""
         }
       });
 
       modal.addEventListener("click", (e) => {
         if (e.target === modal) {
           modal.remove();
-          enableScroll()
+          document.body.style.overflow = ""
         }
       });
 
       modal.querySelector(".confirm-order-btn").addEventListener("click", () => {
         alert("Order placed for " + name);
         modal.remove();
-
+        document.body.style.overflow = ""
       });
     });
   });
 }
 
-function disableScroll() {
-  document.documentElement.classList.add("no-scroll");
-  document.body.classList.add("no-scroll");
-}
 
-function enableScroll() {
-  document.documentElement.classList.remove("no-scroll");
-  document.body.classList.remove("no-scroll");
-}
 
-// Initialize
 document.addEventListener("DOMContentLoaded", () => {
   renderMenu();
   renderGallery();

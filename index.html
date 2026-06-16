@@ -12,16 +12,6 @@
 
 <body>
   <header>
-    <!-- <nav>
-        <p>ABCD</p>
-        <ul>
-          <li><a href="#Home">Home</a></li>
-          <li><a href="#Menu">Menu</a></li>
-          <li><a href="#Gallery">Gallery</a></li>
-          <li><a href="#FAQ">FAQ</a></li>
-          <li><a href="#Contact">Contact</a></li>
-        </ul>
-      </nav> -->
     <nav>
       <div><a href="#Home" id="heading"><img src="./assets/logo.png" height="70px" alt="logo"></a></div>
       <ul id="links">
@@ -79,7 +69,7 @@
       </div>
     </section>
 
-    <section id="Menu" class="menu-section">
+    <section id="Menu" class="menu-section fade-in-box">
       <div class="container">
         <div class="section-head">
           <h2 class="section-heading">Our Menu</h2>
@@ -178,17 +168,33 @@
           </div>
 
           <form id="con-form" class="order-form" autocomplete="off" onsubmit="validate(event)">
-            <div>
-              <input type="text" name="name" id="name" placeholder="Enter your name..." />
-              <p id="name-err"></p>
+            <div class="form-row">
+
+              <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" id="first_name" placeholder="Enter your first name..." />
+                <p id="first_name-err"></p>
+              </div>
+
+              <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name" id="last_name" placeholder="Enter your last name..." />
+                <p id="last_name-err"></p>
+              </div>
+
             </div>
-            <div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
               <input type="email" name="email" id="email" placeholder="Enter your email..." />
               <p id="email-err"></p>
             </div>
-            <div>
-              <textarea name="message" id="message" placeholder="Enter message here." rows="7" cols="30"></textarea>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea name="message" id="message" placeholder="Enter your message..." rows="7"></textarea>
             </div>
+
             <input type="submit" value="Submit" />
           </form>
         </div>
@@ -207,13 +213,11 @@
       <a href="#Home">
         <img src="./assets/logo.png" height="120" alt="logo">
       </a>
-
       <p>
         We craft every cup with precision, roasting premium beans to deliver
         unforgettable coffee experiences every day.
       </p>
     </div>
-
     <div class="footer-links">
       <h3>Quick Links</h3>
       <a href="#Home">Home</a>
@@ -222,22 +226,19 @@
       <a href="#FAQ">FAQ</a>
       <a href="#Contact">Contact</a>
     </div>
-
     <div class="footer-contact">
       <h3>Contact</h3>
-      <p>📍 Surat, Gujarat</p>
-      <p>📞 +91 98765 43210</p>
-      <p>✉️ hello@coffeecorner.com</p>
+      <p>Surat, Gujarat</p>
+      <p>+91 98765 43210</p>
+      <p>hello@coffeecorner.com</p>
     </div>
-
     <div class="footer-social">
       <h3>Follow Us</h3>
-
       <div class="social-icons">
-        <a href="#">📷 Instagram</a>
-        <a href="#">📘 Facebook</a>
-        <a href="#">🐦 X / Twitter</a>
-        <a href="#">💼 LinkedIn</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">X / Twitter</a>
+        <a href="#">LinkedIn</a>
       </div>
     </div>
   </footer>
