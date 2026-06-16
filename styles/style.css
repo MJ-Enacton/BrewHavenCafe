@@ -414,7 +414,6 @@ header nav>button {
 
 @media (max-width : 500px) {
   .fade-in-box {
-
     animation-range: entry 5% cover 15%;
   }
 
@@ -423,10 +422,12 @@ header nav>button {
 @keyframes fadeIn {
   from {
     opacity: 0;
+    transform: translateY(30px);
   }
 
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
