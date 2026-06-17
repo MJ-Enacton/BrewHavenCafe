@@ -154,17 +154,16 @@
           <img class="grid-imgs" src="./assets/coffee_shop.jpg" alt="" data-index="5">
         </div>
 
-        <div id="carousel-cont" class="carousel-container" data-arrrows="false">
-          <div class="carousel" id="carousel">
-            <img class="slide active" src="./assets/black_coffee.jpg" />
-            <img class="slide" src="./assets/coffee_shop.jpg" />
-            <img class="slide" src="./assets/coffee1.jpg" />
-            <img class="slide" src="./assets/Ambiance.jpg" />
+        <div id="carousel-cont" class="carousel-container">
+          <div class="carousel" id="carousel" data-dots="true">
+            <div class="track">
+              <img class="slide active" src="./assets/black_coffee.jpg" />
+              <img class="slide" src="./assets/coffee_shop.jpg" />
+              <img class="slide" src="./assets/coffee1.jpg" />
+              <img class="slide" src="./assets/Ambiance.jpg" />
+            </div>
 
-            <button class="dot dot-active" onclick="setandshowindex(0)"></button>
-            <button class="dot" onclick="setandshowindex(1)"></button>
-            <button class="dot" onclick="setandshowindex(2)"></button>
-            <button class="dot" onclick="setandshowindex(3)"></button>
+            <div class="dots-container"></div>
 
             <button class="car-btn prev" onclick="prev()">&larr;</button>
             <button class="car-btn next" onclick="next()">&rarr;</button>

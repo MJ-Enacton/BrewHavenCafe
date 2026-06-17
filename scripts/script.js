@@ -134,62 +134,123 @@ function validate(event) {
     subjectInput.value = "";
   }
 }
+const renderCarouselDots = () => {
+  const dotsContainer = document.querySelector(".dots-container");
+
+  const totalSlides =
+    document.querySelector(".track").getElementsByTagName("img").length;
+
+  for (let i = 0; i < totalSlides; i++) {
+    const button = document.createElement("button");
+
+    button.className = "dot ";
+    if (i == 0) {
+      button.className += "dot-active"
+    }
+
+    button.addEventListener("click", () => {
+      index = i;
+      updateSlider();
+      restartAutoSlide();
+    });
+
+    dotsContainer.appendChild(button);
+  }
+};
 
 // Carousel Logic
-const slides = document.querySelectorAll(".slide");
-const dots = document.querySelectorAll(".dot");
+const track = document.querySelector(".track");
+const slides = document.querySelectorAll(".track img");
 
 let index = 0;
-let timerId = null;
 
-function showSlide(index) {
-  slides.forEach((slide) => {
-    slide.classList.remove("active", "next-slide");
-  });
+let startX = 0;
+let currentX = 0;
+let isDragging = false;
 
-  dots.forEach((dot) => {
-    dot.classList.remove("dot-active");
-  });
+let autoSlide;
 
-  slides[index].classList.add("active");
-  dots[index].classList.add("dot-active");
+const slideWidth = () => {
+  const slide = slides[0];
+  const gap = track.offsetWidth * 0.02;
+  return slide.offsetWidth + gap;
+};
 
-  const nextIndex = (index + 1) % slides.length;
-  slides[nextIndex].classList.add("next-slide");
-}
+function updateSlider(animated = true) {
+  track.style.transition = animated
+    ? "transform .4s ease"
+    : "none";
 
-function startAutoSlide() {
-  clearInterval(timerId);
+  track.style.transform = `translateX(-${index * slideWidth()}px)`;
 
-  timerId = setInterval(() => {
-    index = (index + 1) % slides.length;
-    showSlide(index);
-  }, 5000);
-}
+  const dots = document.querySelectorAll(".dot");
 
-if (slides.length > 0) {
-  showSlide(index);
-  startAutoSlide();
-}
+  if (dots.length) {
+    dots.forEach(dot => {
+      dot.classList.remove("dot-active");
+    });
 
-function setandshowindex(i) {
-  index = i;
-  showSlide(index);
-  startAutoSlide();
-}
-
-function prev() {
-  index = (index - 1 + slides.length) % slides.length;
-  showSlide(index);
-  startAutoSlide();
+    dots[index].classList.add("dot-active");
+  }
 }
 
 function next() {
   index = (index + 1) % slides.length;
-  showSlide(index);
+  updateSlider();
+  restartAutoSlide();
+}
+
+function prev() {
+  index = (index - 1 + slides.length) % slides.length;
+  updateSlider();
+  restartAutoSlide();
+}
+
+function startAutoSlide() {
+  autoSlide = setInterval(() => {
+    next();
+  }, 5000);
+}
+
+function restartAutoSlide() {
+  clearInterval(autoSlide);
   startAutoSlide();
 }
 
+track.addEventListener("pointerdown", (e) => {
+  startX = e.clientX;
+  isDragging = true;
+
+  track.style.transition = "none";
+});
+
+window.addEventListener("pointermove", (e) => {
+  if (!isDragging) return;
+
+  currentX = e.clientX;
+  const diff = currentX - startX;
+  track.style.transform = `translateX(${-index * slideWidth() + diff}px)`;
+});
+
+window.addEventListener("pointerup", (e) => {
+  if (!isDragging) return;
+
+  isDragging = false;
+
+  const diff = e.clientX - startX;
+
+  if (diff < -100) {
+    index = (index + 1) % slides.length;
+  } else if (diff > 100) {
+    index = (index - 1 + slides.length) % slides.length;
+  }
+
+  updateSlider();
+  restartAutoSlide();
+});
+
+updateSlider(false);
+startAutoSlide();
 
 // Mobile Menu
 const menuBtn = document.getElementById("link-btn");
@@ -300,7 +361,6 @@ function openLightbox(startIndex) {
     });
   }
   const gridImages = [...document.getElementById("gal-grid").getElementsByTagName("img")];
-
 
   gridImages.forEach((img, i) => {
     const thumb = document.createElement("img");
@@ -452,6 +512,9 @@ function attachDynamicEventListeners() {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderMenu();
+  if (document.getElementById("carousel").dataset.dots === "true") {
+    renderCarouselDots();
+  }
   renderFAQ();
   attachDynamicEventListeners();
 });
