@@ -29,15 +29,6 @@ const menuData = [
   }
 ];
 
-const galleryGridData = [
-  "./assets/gettyimages-1467739359-612x612.jpg",
-  "./assets/a-black-and-white-sign-that-says-cafe-photo.jpg",
-  "./assets/Ambiance.jpg",
-  "./assets/cafe-interior-design.jpg",
-  "./assets/Coffee-food.jpg",
-  "./assets/coffee_shop.jpg"
-];
-
 const faqData = [
   {
     question: "What is the difference between an espresso, a latte, and a cappuccino?",
@@ -67,11 +58,13 @@ function validate(event) {
   const firstNameInput = document.getElementById("first_name");
   const lastNameInput = document.getElementById("last_name");
   const emailInput = document.getElementById("email");
+  const subjectInput = document.getElementById("subject");
   const messageInput = document.getElementById("message");
 
   const firstNameErr = document.getElementById("first_name-err");
   const lastNameErr = document.getElementById("last_name-err");
   const emailErr = document.getElementById("email-err");
+  const subjectErr = document.getElementById("subject-err");
 
   let isValid = true;
 
@@ -120,8 +113,25 @@ function validate(event) {
     messageInput.style.borderColor = "";
   }
 
+  if (subjectInput.value.trim() === "") {
+    subjectErr.textContent = "Subject cannot be empty.";
+    subjectErr.style.color = "var(--error-color)";
+    subjectInput.style.borderColor = "var(--error-color)";
+    subjectInput.style.borderWidth = "2px";
+    subjectInput.style.borderStyle = "solid";
+    isValid = false;
+  } else {
+    subjectErr.textContent = "";
+    subjectInput.style.borderColor = "";
+  }
+
   if (isValid) {
     alert("All fields filled! Form submitted.");
+    firstNameInput.value = "";
+    lastNameInput.value = "";
+    emailInput.value = "";
+    messageInput.value = "";
+    subjectInput.value = "";
   }
 }
 
@@ -191,11 +201,12 @@ menuBtn.addEventListener("click", () => {
 
 document.addEventListener("click", (e) => {
   if (
-    !links.contains(e.target) &&
+    links.contains(e.target) &&
     !menuBtn.contains(e.target)
   ) {
     links.classList.remove("show");
   }
+
 });
 
 // Render Functions
@@ -235,18 +246,9 @@ function renderMenu() {
   });
 }
 
-function renderGallery() {
-  const galContainer = document.getElementById("gal-grid");
-  galContainer.innerHTML = "";
-  galleryGridData.forEach((imgSrc, index) => {
-    const imgHTML = `<img class="grid-imgs" src="${imgSrc}" data-index="${index}" />`;
-    galContainer.insertAdjacentHTML('beforeend', imgHTML);
-  });
-}
-
 function openLightbox(startIndex) {
   let currentIndex = startIndex;
-  const totalCount = galleryGridData.length;
+  const totalCount = document.getElementById("gal-grid").getElementsByTagName("img").length;
 
   const lightbox = document.createElement("div");
   lightbox.className = "lightbox";
@@ -285,7 +287,7 @@ function openLightbox(startIndex) {
   document.body.style.overflow = "hidden";
 
   function updateLightbox() {
-    mainImg.src = galleryGridData[currentIndex];
+    mainImg.src = document.getElementById("gal-grid").getElementsByTagName("img")[currentIndex].src;
     counter.textContent = `${currentIndex + 1} / ${totalCount}`;
 
     const thumbnails = thumbsContainer.querySelectorAll(".lightbox-thumb");
@@ -297,10 +299,12 @@ function openLightbox(startIndex) {
       }
     });
   }
+  const gridImages = [...document.getElementById("gal-grid").getElementsByTagName("img")];
 
-  galleryGridData.forEach((imgSrc, i) => {
+
+  gridImages.forEach((img, i) => {
     const thumb = document.createElement("img");
-    thumb.src = imgSrc;
+    thumb.src = img.src;
     thumb.className = "lightbox-thumb";
     thumb.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -327,6 +331,7 @@ function openLightbox(startIndex) {
   function handleKeyDown(e) {
     if (e.key === "Escape") {
       lightbox.remove();
+      document.body.style.overflow = "";
     } else if (e.key === "ArrowRight") {
       currentIndex = (currentIndex + 1) % totalCount;
       updateLightbox();
@@ -373,75 +378,80 @@ function attachDynamicEventListeners() {
     });
   });
 
-  const gridImages = document.querySelectorAll(".grid-imgs");
-  gridImages.forEach((img) => {
-    img.addEventListener("click", (e) => {
-      const startIndex = parseInt(img.getAttribute("data-index") || "0", 10);
-      openLightbox(startIndex);
+  const galleryGrid = document.querySelector(".gal-grid");
+
+  galleryGrid.addEventListener("click", (e) => {
+    const img = e.target.closest(".grid-imgs");
+    if (!img) return;
+    const startIndex = parseInt(img.dataset.index || "0", 10);
+    openLightbox(startIndex);
+  });
+
+  const menuCategory = document.querySelectorAll(".menu-category");
+
+  menuCategory.forEach((menuCat) => {
+    menuCat.addEventListener("click", (e) => {
+      const item = e.target.closest(".item-cont");
+      if (!item) return;
+      modalDisplay(item);
     });
   });
 
-  const orderBtns = document.querySelectorAll(".order-btn");
-  orderBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const itemCont = e.target.closest(".item-cont");
-      const imgSrc = itemCont.querySelector(".item-img").src;
-      const name = itemCont.querySelector(".item-name").textContent;
-      const desc = itemCont.querySelector(".item-desc").textContent;
-      const price = itemCont.querySelector(".price").textContent;
+  function modalDisplay(item) {
+    const imgSrc = item.querySelector(".item-img").src;
+    const name = item.querySelector(".item-name").textContent;
+    const desc = item.querySelector(".item-desc").textContent;
+    const price = item.querySelector(".price").textContent;
 
-      const modal = document.createElement("div");
-      modal.classList.add("order-modal");
+    const modal = document.createElement("div");
+    modal.classList.add("order-modal");
 
-      modal.innerHTML = `
-        <div class="modal-content">
-          <span class="close-modal">&times;</span>
-          <img src="${imgSrc}" alt="${name}" />
-          <div class="modal-info">
-            <h3>${name}</h3>
-            <p>${desc}</p>
-            <p class="modal-price">${price}</p>
-            <button class="confirm-order-btn">Order Now</button>
+    modal.innerHTML = `
+          <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img src="${imgSrc}" alt="${name}" />
+            <div class="modal-info">
+              <h3>${name}</h3>
+              <p>${desc}</p>
+              <p class="modal-price">${price}</p>
+              <button class="confirm-order-btn">Order Now</button>
+            </div>
           </div>
-        </div>
-      `;
+        `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = "hidden"
 
-      document.body.appendChild(modal);
-      document.body.style.overflow = "hidden"
-
-      modal.querySelector(".close-modal").addEventListener("click", () => {
-        modal.remove();
-        document.body.style.overflow = ""
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") {
-          modal.remove();
-          document.body.style.overflow = ""
-        }
-      });
-
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-          modal.remove();
-          document.body.style.overflow = ""
-        }
-      });
-
-      modal.querySelector(".confirm-order-btn").addEventListener("click", () => {
-        alert("Order placed for " + name);
-        modal.remove();
-        document.body.style.overflow = ""
-      });
+    modal.querySelector(".close-modal").addEventListener("click", () => {
+      modal.remove();
+      document.body.style.overflow = ""
     });
-  });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        modal.remove();
+        document.body.style.overflow = ""
+      }
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.remove();
+        document.body.style.overflow = ""
+      }
+    });
+
+    modal.querySelector(".confirm-order-btn").addEventListener("click", () => {
+      alert("Order placed for " + name);
+      modal.remove();
+      document.body.style.overflow = ""
+    });
+  }
 }
 
 
 
 document.addEventListener("DOMContentLoaded", () => {
   renderMenu();
-  renderGallery();
   renderFAQ();
   attachDynamicEventListeners();
 });
