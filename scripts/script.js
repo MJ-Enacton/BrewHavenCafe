@@ -52,9 +52,48 @@ const faqData = [
   }
 ];
 
+const testimonialsData = [
+  {
+    stars: "⭐⭐⭐⭐⭐",
+    name: "Riya Sharma",
+    desc: "The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly."
+  },
+  {
+    stars: "⭐⭐⭐⭐",
+    name: "Mohit Verma",
+    desc: "Perfect blend of aroma and taste. Must visit!"
+  },
+  {
+    stars: "⭐⭐⭐⭐⭐",
+    name: "Ananya Singh",
+    desc: "A gem for coffee lovers. Highly recommended!"
+  },
+  {
+    stars: "⭐⭐⭐⭐",
+    name: "Vikas Gupta",
+    desc: "Best place for chilling out with friends. Their cold coffee is amazing."
+  },
+  {
+    stars: "⭐⭐⭐⭐",
+    name: "Sakshi Arora",
+    desc: "The ambiance is perfect for long conversations. Cozy and warm."
+  },
+  {
+    stars: "⭐⭐⭐⭐⭐",
+    name: "Rohit Khanna",
+    desc: "Quick service and consistently great quality. My daily spot!"
+  }
+]
+
+
 function validate(event) {
   event.preventDefault();
 
+  const honeypotInput = document.getElementById("website");
+
+  if (honeypotInput.value.trim() !== "") {
+    return;
+  }
   const firstNameInput = document.getElementById("first_name");
   const lastNameInput = document.getElementById("last_name");
   const emailInput = document.getElementById("email");
@@ -65,6 +104,7 @@ function validate(event) {
   const lastNameErr = document.getElementById("last_name-err");
   const emailErr = document.getElementById("email-err");
   const subjectErr = document.getElementById("subject-err");
+
 
   let isValid = true;
 
@@ -126,7 +166,36 @@ function validate(event) {
   }
 
   if (isValid) {
-    alert("All fields filled! Form submitted.");
+
+    const formModal = document.createElement("div");
+
+    formModal.innerHTML = `
+    <div class="order-modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3 class="modal-info">Form Submitted</h3>
+        <p class="modal-info">All fields filled! Form submitted.</p>
+        <p class="modal-info">First Name: ${firstNameInput.value}</p>
+        <p class="modal-info">Last Name: ${lastNameInput.value}</p>
+        <p class="modal-info">Email: ${emailInput.value}</p>
+        <p class="modal-info">Subject: ${subjectInput.value}</p>
+        <p class="modal-info">Message: ${messageInput.value}</p>
+      </div>
+    </div>
+    `;
+    document.body.appendChild(formModal);
+
+    const closeBtn = document.querySelector(".close-modal");
+    closeBtn.addEventListener("click", () => {
+      formModal.remove();
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === formModal) {
+        formModal.remove();
+      }
+    });
+
     firstNameInput.value = "";
     lastNameInput.value = "";
     emailInput.value = "";
@@ -156,6 +225,23 @@ const renderCarouselDots = () => {
 
     dotsContainer.appendChild(button);
   }
+}
+
+const renderCarouselArrows = () => {
+  const arrowsContainer = document.querySelector(".arrows-container");
+
+  const prevButton = document.createElement("button");
+  prevButton.className = "prev car-btn";
+  prevButton.innerHTML = "&larr;";
+  prevButton.addEventListener("click", prev);
+
+  arrowsContainer.appendChild(prevButton);
+
+  const nextButton = document.createElement("button");
+  nextButton.className = "next car-btn";
+  nextButton.innerHTML = "&rarr;";
+  nextButton.addEventListener("click", next);
+  arrowsContainer.appendChild(nextButton);
 };
 
 // Carousel Logic
@@ -169,10 +255,16 @@ let currentX = 0;
 let isDragging = false;
 
 let autoSlide;
+let gap;
 
 const slideWidth = () => {
   const slide = slides[0];
-  const gap = track.offsetWidth * 0.02;
+  if (window.innerWidth > 700) {
+    gap = track.offsetWidth * 0.02;
+  }
+  else {
+    gap = 0;
+  }
   return slide.offsetWidth + gap;
 };
 
@@ -220,13 +312,13 @@ function restartAutoSlide() {
 track.addEventListener("pointerdown", (e) => {
   startX = e.clientX;
   isDragging = true;
-
+  document.getElementById("carousel").style.cursor = "grabbing";
   track.style.transition = "none";
 });
 
 window.addEventListener("pointermove", (e) => {
   if (!isDragging) return;
-
+  document.getElementById("carousel").style.cursor = "grabbing";
   currentX = e.clientX;
   const diff = currentX - startX;
   track.style.transform = `translateX(${-index * slideWidth() + diff}px)`;
@@ -235,6 +327,7 @@ window.addEventListener("pointermove", (e) => {
 window.addEventListener("pointerup", (e) => {
   if (!isDragging) return;
 
+  document.getElementById("carousel").style.cursor = "grab";
   isDragging = false;
 
   const diff = e.clientX - startX;
@@ -410,6 +503,22 @@ function openLightbox(startIndex) {
   };
 }
 
+function renderTestimonials() {
+  const container = document.getElementById("testimonial-container");
+  const track = container.querySelector(".track");
+  track.innerHTML = "";
+  testimonialsData.forEach(testimonial => {
+    const testimonialHTML = `
+      <div class="testimonial">
+        <div class="stars">${testimonial.stars}</div>
+        <p class="desc">${testimonial.desc}</p>
+        <div class="name">${testimonial.name}</div>
+      </div>
+    `;
+    track.insertAdjacentHTML('beforeend', testimonialHTML);
+  });
+}
+
 function renderFAQ() {
   const faqContainer = document.getElementById("faq-container");
   faqContainer.innerHTML = "";
@@ -515,6 +624,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("carousel").dataset.dots === "true") {
     renderCarouselDots();
   }
+  if (document.getElementById("carousel").dataset.arrows === "true") {
+    renderCarouselArrows();
+  }
+  renderTestimonials()
   renderFAQ();
   attachDynamicEventListeners();
 });

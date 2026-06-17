@@ -155,7 +155,7 @@
         </div>
 
         <div id="carousel-cont" class="carousel-container">
-          <div class="carousel" id="carousel" data-dots="true">
+          <div class="carousel" id="carousel" data-dots="true" data-arrows="false">
             <div class="track">
               <img class="slide active" src="./assets/black_coffee.jpg" />
               <img class="slide" src="./assets/coffee_shop.jpg" />
@@ -165,8 +165,20 @@
 
             <div class="dots-container"></div>
 
-            <button class="car-btn prev" onclick="prev()">&larr;</button>
-            <button class="car-btn next" onclick="next()">&rarr;</button>
+            <div class="arrows-container"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-heading">Testimonials</h2>
+          <p class="section-subheading">Our Clients and their heart warming reviews</p>
+        </div>
+        <div id="testimonial-container">
+          <div class="carousel" id="carousel">
           </div>
         </div>
       </div>
@@ -247,7 +259,11 @@
                 <input type="text" name="last_name" id="last_name" placeholder="Enter your last name..." />
                 <p id="last_name-err"></p>
               </div>
+            </div>
 
+            <div class="honeypot-field" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" autocomplete="off" />
             </div>
 
             <div class="form-group">
