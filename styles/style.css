@@ -131,6 +131,11 @@ header nav>button {
   cursor: pointer;
 }
 
+#link-btn {
+  height: 30px;
+  width: 30px;
+}
+
 @media (max-width: 900px) {
   header nav {
     padding: 0 2%
@@ -337,7 +342,7 @@ section {
 .section-head {
   text-align: center;
   margin-bottom: 60px;
-  margin-top: 80px;
+  margin-top: 60px;
 }
 
 .section-heading {
@@ -447,6 +452,7 @@ section {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+  padding-bottom: 20px;
 }
 
 .feature-card {
@@ -511,9 +517,6 @@ section {
 }
 
 /* ================= MENU ================= */
-.menu-section {
-  padding-bottom: 50px;
-}
 
 .menu-category {
   margin-bottom: 70px;
@@ -792,6 +795,7 @@ section {
   opacity: 0;
   z-index: 0;
   width: 100%;
+  padding-bottom: 30px;
 }
 
 .carousel>img.active {
@@ -838,8 +842,6 @@ section {
 }
 
 .slide {
-  width: 70%;
-  flex-shrink: 0;
   object-fit: cover;
   flex-shrink: 0;
   border-radius: 20px;
@@ -862,7 +864,7 @@ section {
   }
 
   .slide img {
-    height: 300px;
+    height: 400px;
   }
 
   .track {
@@ -894,20 +896,15 @@ section {
   background: var(--bg-white);
 }
 
-@media (max-width: 700px) {
-  .carousel {
-    height: 300px;
-  }
-
-  .carousel>img {
-    height: 300px;
-  }
+.testimonial-section {
+  padding-bottom: 30px;
 }
 
 .testimonial {
   background: var(--item-cont-bg);
   border-radius: 20px;
   padding: 2rem;
+  height: 300px;
 
   display: flex;
   flex-direction: column;
@@ -920,16 +917,13 @@ section {
 .stars {
   font-size: 1.2rem;
   letter-spacing: 2px;
-
   margin-bottom: 1rem;
 }
 
 .desc {
-  flex: 1;
-
   margin-bottom: 1.5rem;
 
-  line-height: 1.8;
+  line-height: 1.25;
   font-size: 1rem;
 
   color: var(--text-color);
@@ -938,19 +932,13 @@ section {
 .name {
   font-size: 1.1rem;
   font-weight: 700;
-
   color: var(--primary-color);
 }
 
 @media (max-width: 700px) {
   .testimonial {
-    padding: 1.5rem;
-    min-height: auto;
-  }
-
-  .testimonial img {
-    width: 70px;
-    height: 70px;
+    padding: 1.25rem;
+    min-height: 150px;
   }
 
   .desc {
@@ -960,7 +948,7 @@ section {
 
 /* ================= FAQ ================= */
 .faq-section {
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 .faq-item {
@@ -1057,18 +1045,6 @@ section {
   align-items: flex-start;
   gap: 15px;
   margin-bottom: 25px;
-}
-
-.contact-info-icon {
-  font-size: 1.5rem;
-  width: 45px;
-  height: 45px;
-  background: var(--contact-form-icon);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-shrink: 0;
 }
 
 .contact-info-label {
@@ -1270,15 +1246,15 @@ section {
 /* ================= FOOTER ================= */
 footer {
   background-color: var(--footer-bg);
-  padding: 60px 8%;
+  padding: 30px 40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
+  gap: 20px;
   border-top: 2px solid rgba(75, 46, 46, 0.15);
 }
 
 footer h3 {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: var(--text-dark);
 }
 
@@ -1298,14 +1274,12 @@ footer a:hover {
 .footer-social {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .social-icons {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: 10px;
 }
 
 .social-icons img {
@@ -1376,6 +1350,7 @@ textarea {
 
   .section-head {
     margin-bottom: 30px;
+    margin-top: 30px;
   }
 }
 

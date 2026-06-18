@@ -56,7 +56,7 @@ const testimonialsData = [
   {
     stars: "⭐⭐⭐⭐⭐",
     name: "Riya Sharma",
-    desc: "The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly."
+    desc: "The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had!"
   },
   {
     stars: "⭐⭐⭐⭐",
@@ -246,18 +246,35 @@ function initSliders() {
 
     const track = carousel.querySelector(".track");
     const dotsContainer = carousel.querySelector(".dots-container");
+    let slidesPerView;
+    if (window.innerWidth > 1000) {
+      slidesPerView = Number(carousel.dataset.slidesperview) || 1;
+    }
+    else {
+      slidesPerView = 1;
+    }
 
-    const getSlides = () =>
-      track.querySelectorAll(".slide");
+    const getSlides = () => track.querySelectorAll(".slide");
 
     let slides = getSlides();
-    const firstClone = slides[0].cloneNode(true);
-    const lastClone = slides[slides.length - 1].cloneNode(true);
+    for (let i = 0; i < slidesPerView; i++) {
 
-    track.appendChild(firstClone);
-    track.insertBefore(lastClone, slides[0]);
+      const firstClone = slides[i].cloneNode(true);
+      const lastClone = slides[slides.length - 1 - i].cloneNode(true);
+      track.appendChild(firstClone);
+      track.insertBefore(lastClone, track.firstChild);
+    }
 
-    let index = 1;
+    const previewPercent = 20;
+    const visiblePercent = 100 - previewPercent;
+
+    const slidePercent = visiblePercent / slidesPerView;
+
+    track.querySelectorAll(".slide").forEach(slide => {
+      slide.style.width = `${slidePercent}%`;
+    });
+
+    let index = slidesPerView;
     let startX = 0;
     let currentX = 0;
     let isDragging = false;
@@ -287,36 +304,23 @@ function initSliders() {
         isAnimating = true;
       }
 
-      track.style.transition =
-        animated ? "transform .4s ease" : "none";
+      track.style.transition = animated ? "transform .4s ease" : "none";
 
-      track.style.transform =
-        `translateX(-${index * slideWidth()}px)`;
-
-      const dots = dotsContainer?.querySelectorAll(".dot");
-      let dotIndex;
+      track.style.transform = `translateX(-${index * slideWidth()}px)`;
 
       const allSlides = track.querySelectorAll(".slide");
 
-      index = Math.max(
-        0,
-        Math.min(index, allSlides.length - 1)
-      );
+      index = Math.max(0, Math.min(index, allSlides.length - 1));
 
-      if (index === 0) {
-        dotIndex = slides.length - 1;
-      }
-      else if (index === slides.length + 1) {
-        dotIndex = 0;
-      }
-      else {
-        dotIndex = index - 1;
+      let dotIndex = (index - slidesPerView) % slides.length;
+
+      if (dotIndex < 0) {
+        dotIndex += slides.length;
       }
 
+      const dots = dotsContainer?.querySelectorAll(".dot");
       if (dots?.length) {
-        dots.forEach(dot =>
-          dot.classList.remove("dot-active")
-        );
+        dots.forEach(dot => dot.classList.remove("dot-active"));
         dots[dotIndex].classList.add("dot-active");
       }
     }
@@ -338,19 +342,18 @@ function initSliders() {
     track.addEventListener("transitionend", () => {
 
       isAnimating = false;
-      const allSlides = track.querySelectorAll(".slide");
 
-      if (index === allSlides.length - 1) {
+      if (index >= slides.length + slidesPerView) {
         track.style.transition = "none";
-        index = 1;
+        index = slidesPerView;
         track.style.transform = `translateX(-${index * slideWidth()}px)`;
         void track.offsetHeight;
         track.style.transition = "transform .4s ease";
       }
 
-      if (index === 0) {
+      if (index < slidesPerView) {
         track.style.transition = "none";
-        index = allSlides.length - 2;
+        index = slides.length + index;
         track.style.transform = `translateX(-${index * slideWidth()}px)`;
         void track.offsetHeight;
         track.style.transition = "transform .4s ease";
@@ -398,7 +401,6 @@ function initSliders() {
     });
 
     window.addEventListener("pointermove", e => {
-
       if (!isDragging) return;
 
       currentX = e.clientX;
@@ -409,14 +411,12 @@ function initSliders() {
     });
 
     window.addEventListener("pointerup", e => {
-
       if (!isDragging) return;
 
       isDragging = false;
       carousel.style.cursor = "grab";
 
       const diff = e.clientX - startX;
-
       if (diff < -100) {
         index++;
       }
@@ -460,7 +460,7 @@ menuBtn.addEventListener("click", () => {
 
 document.addEventListener("click", (e) => {
   if (
-    links.contains(e.target) &&
+    !links.contains(e.target) &&
     !menuBtn.contains(e.target)
   ) {
     links.classList.remove("show");
@@ -474,7 +474,7 @@ function renderMenu() {
   menuContainer.innerHTML = "";
   menuData.forEach(cat => {
     const catDiv = document.createElement("div");
-    catDiv.className = "menu-category fade-up show-animate";
+    catDiv.className = "menu-category fade-up";
 
     const title = document.createElement("h2");
     title.className = "category-title";
@@ -486,7 +486,7 @@ function renderMenu() {
 
     cat.items.forEach(item => {
       const itemHTML = `
-        <div class="item-cont fade-up show-animate">
+        <div class="item-cont fade-up">
           <img class="item-img" src="${item.img}" alt="${item.name}" />
           <div class="content">
             <p class="item-name">${item.name}</p>
@@ -630,7 +630,7 @@ function renderFAQ() {
   faqContainer.innerHTML = "";
   faqData.forEach(faq => {
     const faqHTML = `
-      <div class="faq-item fade-up show-animate">
+      <div class="faq-item fade-up">
         <button class="faq-question">
           ${faq.question}
           <span class="icon">+</span>
@@ -723,36 +723,31 @@ function attachDynamicEventListeners() {
   }
 }
 
-const animatedElements =
-  document.querySelectorAll(".fade-up");
 
 function checkAnimations() {
+  const animatedElements = document.querySelectorAll(".fade-up, .fade-left, .fade-right");
 
   animatedElements.forEach(element => {
-
-    const rect =
-      element.getBoundingClientRect();
-
-    if (
-      rect.top < window.innerHeight - 100
-    ) {
+    const rect = element.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
       element.classList.add("show-animate");
     }
   });
-
 }
 
-let isScrolling = false;
-window.addEventListener("scroll", () => {
-  if (isScrolling) return;
-  isScrolling = true;
+// let isScrolling = false;
+// window.addEventListener("scroll", () => {
+//   if (isScrolling) return;
+//   isScrolling = true;
 
-  requestAnimationFrame(() => {
-    checkAnimations();
-    isScrolling = false;
-  });
+//   requestAnimationFrame(() => {
+//     checkAnimations();
+//     isScrolling = false;
+//   });
 
-});
+// });
+
+window.addEventListener("scroll", checkAnimations)
 
 window.addEventListener(
   "load",
@@ -761,9 +756,9 @@ window.addEventListener(
 
 document.addEventListener("DOMContentLoaded", () => {
   renderMenu();
-  renderTestimonials()
+  renderTestimonials();
   renderFAQ();
+  checkAnimations();
   attachDynamicEventListeners();
   initSliders();
-
 });
