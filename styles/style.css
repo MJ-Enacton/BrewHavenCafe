@@ -778,7 +778,6 @@ section {
 .carousel {
   position: relative;
   width: 100%;
-  height: 700px;
   overflow: hidden;
   border-radius: 25px;
   cursor: grab;
@@ -835,11 +834,12 @@ section {
   gap: 2%;
   touch-action: pan-y;
   transition: transform 0.4s ease;
+  will-change: transform;
 }
 
-.track img {
+.slide {
   width: 70%;
-  height: 700px;
+  flex-shrink: 0;
   object-fit: cover;
   flex-shrink: 0;
   border-radius: 20px;
@@ -847,9 +847,21 @@ section {
   -webkit-user-drag: none;
 }
 
+.slide img {
+  width: 100%;
+  height: 700px;
+  object-fit: cover;
+  border-radius: 20px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
 @media (max-width: 700px) {
-  .track img {
+  .slide {
     width: 100%;
+  }
+
+  .slide img {
     height: 300px;
   }
 
@@ -889,6 +901,60 @@ section {
 
   .carousel>img {
     height: 300px;
+  }
+}
+
+.testimonial {
+  background: var(--item-cont-bg);
+  border-radius: 20px;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.stars {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+
+  margin-bottom: 1rem;
+}
+
+.desc {
+  flex: 1;
+
+  margin-bottom: 1.5rem;
+
+  line-height: 1.8;
+  font-size: 1rem;
+
+  color: var(--text-color);
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: 700;
+
+  color: var(--primary-color);
+}
+
+@media (max-width: 700px) {
+  .testimonial {
+    padding: 1.5rem;
+    min-height: auto;
+  }
+
+  .testimonial img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .desc {
+    font-size: 0.95rem;
   }
 }
 
@@ -1495,4 +1561,33 @@ textarea {
   left: -9999px;
   opacity: 0;
   pointer-events: none;
+}
+
+.fade-up,
+.fade-left,
+.fade-right,
+.zoom-in {
+  opacity: 0;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.fade-up {
+  transform: translateY(50px);
+}
+
+.fade-left {
+  transform: translateX(-50px);
+}
+
+.fade-right {
+  transform: translateX(50px);
+}
+
+.fade-up.show-animate,
+.fade-left.show-animate,
+.fade-right.show-animate {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
 }

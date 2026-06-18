@@ -56,7 +56,7 @@ const testimonialsData = [
   {
     stars: "⭐⭐⭐⭐⭐",
     name: "Riya Sharma",
-    desc: "The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly."
+    desc: "The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly.The best coffee I've ever had! The ambiance is so peaceful and the staff is very friendly."
   },
   {
     stars: "⭐⭐⭐⭐",
@@ -91,9 +91,6 @@ function validate(event) {
 
   const honeypotInput = document.getElementById("website");
 
-  if (honeypotInput.value.trim() !== "") {
-    return;
-  }
   const firstNameInput = document.getElementById("first_name");
   const lastNameInput = document.getElementById("last_name");
   const emailInput = document.getElementById("email");
@@ -105,6 +102,42 @@ function validate(event) {
   const emailErr = document.getElementById("email-err");
   const subjectErr = document.getElementById("subject-err");
 
+  if (honeypotInput.value.trim() !== "") {
+    const formModal = document.createElement("div");
+
+    formModal.innerHTML = `
+    <div class="order-modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <p class="modal-info">Fake Submission</p>
+        <p class="modal-info">First Name: ${firstNameInput.value}</p>
+        <p class="modal-info">Last Name: ${lastNameInput.value}</p>
+        <p class="modal-info">Email: ${emailInput.value}</p>
+        <p class="modal-info">Subject: ${subjectInput.value}</p>
+        <p class="modal-info">Message: ${messageInput.value}</p>
+      </div>
+    </div>
+    `;
+    document.body.appendChild(formModal);
+
+    const closeBtn = document.querySelector(".close-modal");
+    closeBtn.addEventListener("click", () => {
+      formModal.remove();
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === formModal) {
+        formModal.remove();
+      }
+    });
+
+    firstNameInput.value = "";
+    lastNameInput.value = "";
+    emailInput.value = "";
+    messageInput.value = "";
+    subjectInput.value = "";
+    return;
+  }
 
   let isValid = true;
 
@@ -174,7 +207,6 @@ function validate(event) {
       <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h3 class="modal-info">Form Submitted</h3>
-        <p class="modal-info">All fields filled! Form submitted.</p>
         <p class="modal-info">First Name: ${firstNameInput.value}</p>
         <p class="modal-info">Last Name: ${lastNameInput.value}</p>
         <p class="modal-info">Email: ${emailInput.value}</p>
@@ -203,147 +235,220 @@ function validate(event) {
     subjectInput.value = "";
   }
 }
-const renderCarouselDots = () => {
-  const dotsContainer = document.querySelector(".dots-container");
 
-  const totalSlides =
-    document.querySelector(".track").getElementsByTagName("img").length;
+// Carousel Logic
 
-  for (let i = 0; i < totalSlides; i++) {
-    const button = document.createElement("button");
+function initSliders() {
+  document.querySelectorAll(".carousel").forEach(carousel => {
 
-    button.className = "dot ";
-    if (i == 0) {
-      button.className += "dot-active"
+    if (carousel.dataset.initialized) return;
+    carousel.dataset.initialized = "true";
+
+    const track = carousel.querySelector(".track");
+    const dotsContainer = carousel.querySelector(".dots-container");
+
+    const getSlides = () =>
+      track.querySelectorAll(".slide");
+
+    let slides = getSlides();
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[slides.length - 1].cloneNode(true);
+
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, slides[0]);
+
+    let index = 1;
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let autoSlide;
+    let gap = 0;
+    let isAnimating = false;
+
+    if (carousel.dataset.dots === "true" && dotsContainer) {
+      slides.forEach((_, i) => {
+        dotsContainer.insertAdjacentHTML(
+          "beforeend",
+          `<button class="dot ${i === 0 ? "dot-active" : ""}"></button>`
+        );
+      });
     }
 
-    button.addEventListener("click", () => {
-      index = i;
+    function slideWidth() {
+      gap = window.innerWidth > 700
+        ? track.offsetWidth * 0.02
+        : 0;
+      return slides[0].offsetWidth + gap;
+    }
+
+    function updateSlider(animated = true) {
+
+      if (animated) {
+        isAnimating = true;
+      }
+
+      track.style.transition =
+        animated ? "transform .4s ease" : "none";
+
+      track.style.transform =
+        `translateX(-${index * slideWidth()}px)`;
+
+      const dots = dotsContainer?.querySelectorAll(".dot");
+      let dotIndex;
+
+      const allSlides = track.querySelectorAll(".slide");
+
+      index = Math.max(
+        0,
+        Math.min(index, allSlides.length - 1)
+      );
+
+      if (index === 0) {
+        dotIndex = slides.length - 1;
+      }
+      else if (index === slides.length + 1) {
+        dotIndex = 0;
+      }
+      else {
+        dotIndex = index - 1;
+      }
+
+      if (dots?.length) {
+        dots.forEach(dot =>
+          dot.classList.remove("dot-active")
+        );
+        dots[dotIndex].classList.add("dot-active");
+      }
+    }
+
+    function next() {
+      if (isAnimating) return;
+      index++;
+      updateSlider();
+      restartAutoSlide();
+    }
+
+    function prev() {
+      if (isAnimating) return;
+      index--;
+      updateSlider();
+      restartAutoSlide();
+    }
+
+    track.addEventListener("transitionend", () => {
+
+      isAnimating = false;
+      const allSlides = track.querySelectorAll(".slide");
+
+      if (index === allSlides.length - 1) {
+        track.style.transition = "none";
+        index = 1;
+        track.style.transform = `translateX(-${index * slideWidth()}px)`;
+        void track.offsetHeight;
+        track.style.transition = "transform .4s ease";
+      }
+
+      if (index === 0) {
+        track.style.transition = "none";
+        index = allSlides.length - 2;
+        track.style.transform = `translateX(-${index * slideWidth()}px)`;
+        void track.offsetHeight;
+        track.style.transition = "transform .4s ease";
+      }
+    });
+
+    if (carousel.dataset.arrows === "true") {
+      const arrowsContainer = carousel.querySelector(".arrows-container");
+
+      const prevButton = document.createElement("button");
+
+      prevButton.className = "prev car-btn";
+      prevButton.innerHTML = "&larr;";
+
+      prevButton.addEventListener("click", prev);
+
+      arrowsContainer.appendChild(prevButton);
+
+      const nextButton = document.createElement("button");
+
+      nextButton.className = "next car-btn";
+      nextButton.innerHTML = "&rarr;";
+
+      nextButton.addEventListener("click", next);
+
+      arrowsContainer.appendChild(nextButton);
+    }
+
+    function startAutoSlide() {
+      if (carousel.dataset.autoplay === "false") return;
+      autoSlide = setInterval(next, 5000);
+    }
+
+    function restartAutoSlide() {
+      clearInterval(autoSlide);
+      startAutoSlide();
+    }
+
+    track.addEventListener("pointerdown", e => {
+      startX = e.clientX;
+      isDragging = true;
+
+      carousel.style.cursor = "grabbing";
+      track.style.transition = "none";
+    });
+
+    window.addEventListener("pointermove", e => {
+
+      if (!isDragging) return;
+
+      currentX = e.clientX;
+      const diff = currentX - startX;
+
+      track.style.transform =
+        `translateX(${-index * slideWidth() + diff}px)`;
+    });
+
+    window.addEventListener("pointerup", e => {
+
+      if (!isDragging) return;
+
+      isDragging = false;
+      carousel.style.cursor = "grab";
+
+      const diff = e.clientX - startX;
+
+      if (diff < -100) {
+        index++;
+      }
+      else if (diff > 100) {
+        index--;
+      }
+
       updateSlider();
       restartAutoSlide();
     });
 
-    dotsContainer.appendChild(button);
-  }
-}
+    dotsContainer?.addEventListener("click", e => {
 
-const renderCarouselArrows = () => {
-  const arrowsContainer = document.querySelector(".arrows-container");
+      if (!e.target.classList.contains("dot")) return;
 
-  const prevButton = document.createElement("button");
-  prevButton.className = "prev car-btn";
-  prevButton.innerHTML = "&larr;";
-  prevButton.addEventListener("click", prev);
+      const dots =
+        [...dotsContainer.querySelectorAll(".dot")];
 
-  arrowsContainer.appendChild(prevButton);
+      index = dots.indexOf(e.target) + 1;
 
-  const nextButton = document.createElement("button");
-  nextButton.className = "next car-btn";
-  nextButton.innerHTML = "&rarr;";
-  nextButton.addEventListener("click", next);
-  arrowsContainer.appendChild(nextButton);
-};
-
-// Carousel Logic
-const track = document.querySelector(".track");
-const slides = document.querySelectorAll(".track img");
-
-let index = 0;
-
-let startX = 0;
-let currentX = 0;
-let isDragging = false;
-
-let autoSlide;
-let gap;
-
-const slideWidth = () => {
-  const slide = slides[0];
-  if (window.innerWidth > 700) {
-    gap = track.offsetWidth * 0.02;
-  }
-  else {
-    gap = 0;
-  }
-  return slide.offsetWidth + gap;
-};
-
-function updateSlider(animated = true) {
-  track.style.transition = animated
-    ? "transform .4s ease"
-    : "none";
-
-  track.style.transform = `translateX(-${index * slideWidth()}px)`;
-
-  const dots = document.querySelectorAll(".dot");
-
-  if (dots.length) {
-    dots.forEach(dot => {
-      dot.classList.remove("dot-active");
+      updateSlider();
+      restartAutoSlide();
     });
 
-    dots[index].classList.add("dot-active");
-  }
+    window.addEventListener("resize", () => {
+      updateSlider(false);
+    });
+
+    updateSlider(false);
+    startAutoSlide();
+  });
 }
-
-function next() {
-  index = (index + 1) % slides.length;
-  updateSlider();
-  restartAutoSlide();
-}
-
-function prev() {
-  index = (index - 1 + slides.length) % slides.length;
-  updateSlider();
-  restartAutoSlide();
-}
-
-function startAutoSlide() {
-  autoSlide = setInterval(() => {
-    next();
-  }, 5000);
-}
-
-function restartAutoSlide() {
-  clearInterval(autoSlide);
-  startAutoSlide();
-}
-
-track.addEventListener("pointerdown", (e) => {
-  startX = e.clientX;
-  isDragging = true;
-  document.getElementById("carousel").style.cursor = "grabbing";
-  track.style.transition = "none";
-});
-
-window.addEventListener("pointermove", (e) => {
-  if (!isDragging) return;
-  document.getElementById("carousel").style.cursor = "grabbing";
-  currentX = e.clientX;
-  const diff = currentX - startX;
-  track.style.transform = `translateX(${-index * slideWidth() + diff}px)`;
-});
-
-window.addEventListener("pointerup", (e) => {
-  if (!isDragging) return;
-
-  document.getElementById("carousel").style.cursor = "grab";
-  isDragging = false;
-
-  const diff = e.clientX - startX;
-
-  if (diff < -100) {
-    index = (index + 1) % slides.length;
-  } else if (diff > 100) {
-    index = (index - 1 + slides.length) % slides.length;
-  }
-
-  updateSlider();
-  restartAutoSlide();
-});
-
-updateSlider(false);
-startAutoSlide();
 
 // Mobile Menu
 const menuBtn = document.getElementById("link-btn");
@@ -369,7 +474,7 @@ function renderMenu() {
   menuContainer.innerHTML = "";
   menuData.forEach(cat => {
     const catDiv = document.createElement("div");
-    catDiv.className = "menu-category";
+    catDiv.className = "menu-category fade-up show-animate";
 
     const title = document.createElement("h2");
     title.className = "category-title";
@@ -381,7 +486,7 @@ function renderMenu() {
 
     cat.items.forEach(item => {
       const itemHTML = `
-        <div class="item-cont">
+        <div class="item-cont fade-up show-animate">
           <img class="item-img" src="${item.img}" alt="${item.name}" />
           <div class="content">
             <p class="item-name">${item.name}</p>
@@ -505,18 +610,19 @@ function openLightbox(startIndex) {
 
 function renderTestimonials() {
   const container = document.getElementById("testimonial-container");
-  const track = container.querySelector(".track");
-  track.innerHTML = "";
+
   testimonialsData.forEach(testimonial => {
     const testimonialHTML = `
-      <div class="testimonial">
+      <div class="slide testimonial">
         <div class="stars">${testimonial.stars}</div>
         <p class="desc">${testimonial.desc}</p>
         <div class="name">${testimonial.name}</div>
       </div>
     `;
-    track.insertAdjacentHTML('beforeend', testimonialHTML);
+
+    container.insertAdjacentHTML("beforeend", testimonialHTML);
   });
+
 }
 
 function renderFAQ() {
@@ -524,7 +630,7 @@ function renderFAQ() {
   faqContainer.innerHTML = "";
   faqData.forEach(faq => {
     const faqHTML = `
-      <div class="faq-item">
+      <div class="faq-item fade-up show-animate">
         <button class="faq-question">
           ${faq.question}
           <span class="icon">+</span>
@@ -617,17 +723,47 @@ function attachDynamicEventListeners() {
   }
 }
 
+const animatedElements =
+  document.querySelectorAll(".fade-up");
 
+function checkAnimations() {
+
+  animatedElements.forEach(element => {
+
+    const rect =
+      element.getBoundingClientRect();
+
+    if (
+      rect.top < window.innerHeight - 100
+    ) {
+      element.classList.add("show-animate");
+    }
+  });
+
+}
+
+let isScrolling = false;
+window.addEventListener("scroll", () => {
+  if (isScrolling) return;
+  isScrolling = true;
+
+  requestAnimationFrame(() => {
+    checkAnimations();
+    isScrolling = false;
+  });
+
+});
+
+window.addEventListener(
+  "load",
+  checkAnimations
+);
 
 document.addEventListener("DOMContentLoaded", () => {
   renderMenu();
-  if (document.getElementById("carousel").dataset.dots === "true") {
-    renderCarouselDots();
-  }
-  if (document.getElementById("carousel").dataset.arrows === "true") {
-    renderCarouselArrows();
-  }
   renderTestimonials()
   renderFAQ();
   attachDynamicEventListeners();
+  initSliders();
+
 });
