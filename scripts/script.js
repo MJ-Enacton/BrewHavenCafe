@@ -245,6 +245,7 @@ function initSliders() {
     carousel.dataset.initialized = "true";
 
     const track = carousel.querySelector(".track");
+
     const dotsContainer = carousel.querySelector(".dots-container");
     let slidesPerView;
     if (window.innerWidth > 1000) {
@@ -435,7 +436,7 @@ function initSliders() {
       const dots =
         [...dotsContainer.querySelectorAll(".dot")];
 
-      index = dots.indexOf(e.target) + 1;
+      index = dots.indexOf(e.target) + slidesPerView;
 
       updateSlider();
       restartAutoSlide();
@@ -486,7 +487,8 @@ function renderMenu() {
 
     cat.items.forEach(item => {
       const itemHTML = `
-        <div class="item-cont fade-up">
+      <div class="fade-up">
+        <div class="item-cont">
           <img class="item-img" src="${item.img}" alt="${item.name}" />
           <div class="content">
             <p class="item-name">${item.name}</p>
@@ -497,6 +499,7 @@ function renderMenu() {
             </div>
           </div>
         </div>
+      </div>
       `;
       grid.insertAdjacentHTML('beforeend', itemHTML);
     });
@@ -666,17 +669,18 @@ function attachDynamicEventListeners() {
 
   menuCategory.forEach((menuCat) => {
     menuCat.addEventListener("click", (e) => {
-      const item = e.target.closest(".item-cont");
+      const item = e.target.closest(".order-btn");
       if (!item) return;
-      modalDisplay(item);
+      const itemCont = e.target.closest(".item-cont");
+      modalDisplay(itemCont);
     });
   });
 
-  function modalDisplay(item) {
-    const imgSrc = item.querySelector(".item-img").src;
-    const name = item.querySelector(".item-name").textContent;
-    const desc = item.querySelector(".item-desc").textContent;
-    const price = item.querySelector(".price").textContent;
+  function modalDisplay(itemCont) {
+    const imgSrc = itemCont.querySelector(".item-img").src;
+    const name = itemCont.querySelector(".item-name").textContent;
+    const desc = itemCont.querySelector(".item-desc").textContent;
+    const price = itemCont.querySelector(".price").textContent;
 
     const modal = document.createElement("div");
     modal.classList.add("order-modal");

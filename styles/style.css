@@ -786,33 +786,6 @@ section {
   cursor: grab;
 }
 
-.carousel>img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  z-index: 0;
-  width: 100%;
-  padding-bottom: 30px;
-}
-
-.carousel>img.active {
-  left: 0;
-  width: 70%;
-  height: 100%;
-  opacity: 1;
-}
-
-.carousel>img.next-slide {
-  left: 72%;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 20px;
-  opacity: 1;
-}
-
 .car-btn {
   position: absolute;
   top: 50%;
@@ -847,6 +820,35 @@ section {
   border-radius: 20px;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+.slider-viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel[data-preview="false"] .slider-viewport {
+  width: 100%;
+}
+
+.carousel[data-preview="true"] .slider-viewport {
+  width: 80%;
+}
+
+.carousel[data-preview="true"] .preview-slide {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18%;
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.carousel[data-preview="true"] .preview-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .slide img {
