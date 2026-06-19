@@ -815,7 +815,7 @@ section {
 }
 
 .slide {
-  object-fit: cover;
+  /* object-fit: cover; */
   flex-shrink: 0;
   border-radius: 20px;
   user-select: none;
@@ -870,7 +870,7 @@ section {
   }
 
   .track {
-    gap: 0;
+    gap: 10px;
   }
 }
 
@@ -943,8 +943,12 @@ section {
     min-height: 150px;
   }
 
+  .name {
+    font-size: 0.9rem;
+  }
+
   .desc {
-    font-size: 0.95rem;
+    font-size: 0.75rem;
   }
 }
 

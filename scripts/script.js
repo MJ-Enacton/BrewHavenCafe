@@ -272,7 +272,7 @@ function initSliders() {
     function slideWidth() {
       gap = window.innerWidth > 700
         ? track.offsetWidth * 0.02
-        : 0;
+        : 10;
       return slides[0].offsetWidth + gap;
     }
 
