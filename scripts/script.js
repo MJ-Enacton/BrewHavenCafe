@@ -29,29 +29,6 @@ const menuData = [
   }
 ];
 
-const faqData = [
-  {
-    question: "What is the difference between an espresso, a latte, and a cappuccino?",
-    answer: "An espresso is a concentrated shot of pure coffee. A latte has a high ratio of steamed milk to espresso, while a cappuccino features equal parts espresso, steamed milk, and airy milk foam."
-  },
-  {
-    question: "Do you sell whole beans for home brewing?",
-    answer: "Yes, we sell our freshly roasted coffee beans in-store. Ask your barista for grind-size recommendations depending on your home brewing equipment."
-  },
-  {
-    question: "Can I customize the sweetness of my coffee?",
-    answer: "Absolutely. You can request half the amount of syrup, specify the number of pumps, or ask for entirely sugar-free syrup alternatives."
-  },
-  {
-    question: "Where do your coffee beans come from?",
-    answer: "We source our specialty-grade Arabica coffee beans directly from ethical farms in regions like Karnataka (India), Colombia, and Ethiopia."
-  },
-  {
-    question: "Do you sell whole-bean coffee for home brewing?",
-    answer: "Absolutely! We sell bags of our freshly roasted whole beans. If you have a preferred brewing method (e.g., French press, pour-over, espresso), our baristas can grin"
-  }
-];
-
 const testimonialsData = [
   {
     stars: "⭐⭐⭐⭐⭐",
@@ -310,9 +287,7 @@ function initSliders() {
       track.style.transform = `translateX(-${index * slideWidth()}px)`;
 
       const allSlides = track.querySelectorAll(".slide");
-
       index = Math.max(0, Math.min(index, allSlides.length - 1));
-
       let dotIndex = (index - slidesPerView) % slides.length;
 
       if (dotIndex < 0) {
@@ -628,32 +603,13 @@ function renderTestimonials() {
 
 }
 
-function renderFAQ() {
-  const faqContainer = document.getElementById("faq-container");
-  faqContainer.innerHTML = "";
-  faqData.forEach(faq => {
-    const faqHTML = `
-      <div class="faq-item fade-up">
-        <button class="faq-question">
-          ${faq.question}
-          <span class="icon">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>${faq.answer}</p>
-        </div>
-      </div>
-    `;
-    faqContainer.insertAdjacentHTML('beforeend', faqHTML);
-  });
-}
-
 function attachDynamicEventListeners() {
-  const faqItems = document.querySelectorAll(".faq-item");
-  faqItems.forEach((item) => {
-    const button = item.querySelector(".faq-question");
-    button.addEventListener("click", () => {
-      item.classList.toggle("active-faq");
-    });
+  const faqContainer = document.querySelector(".faq-container");
+
+  faqContainer.addEventListener("click", (e) => {
+    const item = e.target.closest(".faq-item");
+    if (!item) return;
+    item.classList.toggle("active-faq");
   });
 
   const galleryGrid = document.querySelector(".gal-grid");
@@ -739,18 +695,6 @@ function checkAnimations() {
   });
 }
 
-// let isScrolling = false;
-// window.addEventListener("scroll", () => {
-//   if (isScrolling) return;
-//   isScrolling = true;
-
-//   requestAnimationFrame(() => {
-//     checkAnimations();
-//     isScrolling = false;
-//   });
-
-// });
-
 window.addEventListener("scroll", checkAnimations)
 
 window.addEventListener(
@@ -761,7 +705,6 @@ window.addEventListener(
 document.addEventListener("DOMContentLoaded", () => {
   renderMenu();
   renderTestimonials();
-  renderFAQ();
   checkAnimations();
   attachDynamicEventListeners();
   initSliders();
