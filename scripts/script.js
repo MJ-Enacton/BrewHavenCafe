@@ -217,47 +217,63 @@ function validate(event) {
 
 function initSliders() {
   document.querySelectorAll(".carousel").forEach(carousel => {
-
     if (carousel.dataset.initialized) return;
     carousel.dataset.initialized = "true";
 
     const track = carousel.querySelector(".track");
-
     const dotsContainer = carousel.querySelector(".dots-container");
+
     let slidesPerView;
     if (window.innerWidth > 1000) {
       slidesPerView = Number(carousel.dataset.slidesperview) || 1;
-    }
-    else {
+    } else {
       slidesPerView = 1;
     }
 
     const getSlides = () => track.querySelectorAll(".slide");
-
     let slides = getSlides();
-    for (let i = 0; i < slidesPerView; i++) {
 
+    for (let i = 0; i < slidesPerView; i++) {
       const firstClone = slides[i].cloneNode(true);
       const lastClone = slides[slides.length - 1 - i].cloneNode(true);
       track.appendChild(firstClone);
       track.insertBefore(lastClone, track.firstChild);
     }
 
-    const previewPercent = 20;
-    const visiblePercent = 100 - previewPercent;
+    // --- ISSUE 1 FIX: Dynamic Width & Gap Logic ---
+    const previewPercent = Number(carousel.dataset.preview) || 0;
+    const gapPercent = Number(carousel.dataset.gap) || 0;
 
-    const slidePercent = visiblePercent / slidesPerView;
+    if (previewPercent > 0) {
+      // Gallery Layout
+      track.style.gap = `${gapPercent}%`;
+      const activeAreaPercent = 100 - previewPercent - gapPercent;
+      const totalGapsInsideActiveArea = slidesPerView > 1 ? slidesPerView - 1 : 0;
 
-    track.querySelectorAll(".slide").forEach(slide => {
-      slide.style.width = `${slidePercent}%`;
-    });
+      track.querySelectorAll(".slide").forEach(slide => {
+        if (slidesPerView > 1) {
+          slide.style.width = `calc((${activeAreaPercent}% - (${gapPercent}% * ${totalGapsInsideActiveArea})) / ${slidesPerView})`;
+        } else {
+          slide.style.width = `${activeAreaPercent}%`;
+        }
+      });
+    } else {
+      // Testimonial Layout (Completely Untouched)
+      const gapSize = window.innerWidth > 700 ? '20px' : '10px';
+      track.querySelectorAll(".slide").forEach(slide => {
+        if (slidesPerView > 1) {
+          slide.style.width = `calc((100% - (${gapSize} * ${slidesPerView - 1})) / ${slidesPerView})`;
+        } else {
+          slide.style.width = `100%`;
+        }
+      });
+    }
 
     let index = slidesPerView;
     let startX = 0;
     let currentX = 0;
     let isDragging = false;
     let autoSlide;
-    let gap = 0;
     let isAnimating = false;
 
     if (carousel.dataset.dots === "true" && dotsContainer) {
@@ -269,35 +285,33 @@ function initSliders() {
       });
     }
 
-    function slideWidth() {
-      gap = window.innerWidth > 700
-        ? track.offsetWidth * 0.02
-        : 10;
-      return slides[0].offsetWidth + gap;
+    // --- ISSUE 2 FIX: Sub-pixel accurate slide distance ---
+    function getSlideStride() {
+      const trackSlides = track.querySelectorAll(".slide");
+      if (trackSlides.length > 1) {
+        // getBoundingClientRect provides exact float values, completely eliminating CSS rounding drift
+        return Math.abs(trackSlides[1].getBoundingClientRect().left - trackSlides[0].getBoundingClientRect().left);
+      }
+      return trackSlides[0].getBoundingClientRect().width;
     }
 
     function updateSlider(animated = true) {
-
-      if (animated) {
-        isAnimating = true;
-      }
+      if (animated) isAnimating = true;
 
       track.style.transition = animated ? "transform .4s ease" : "none";
-
-      track.style.transform = `translateX(-${index * slideWidth()}px)`;
+      // Swapped old slideWidth() for the precise getSlideStride()
+      track.style.transform = `translateX(-${index * getSlideStride()}px)`;
 
       const allSlides = track.querySelectorAll(".slide");
       index = Math.max(0, Math.min(index, allSlides.length - 1));
-      let dotIndex = (index - slidesPerView) % slides.length;
 
-      if (dotIndex < 0) {
-        dotIndex += slides.length;
-      }
+      let dotIndex = (index - slidesPerView) % slides.length;
+      if (dotIndex < 0) dotIndex += slides.length;
 
       const dots = dotsContainer?.querySelectorAll(".dot");
       if (dots?.length) {
         dots.forEach(dot => dot.classList.remove("dot-active"));
-        dots[dotIndex].classList.add("dot-active");
+        if (dots[dotIndex]) dots[dotIndex].classList.add("dot-active");
       }
     }
 
@@ -316,13 +330,12 @@ function initSliders() {
     }
 
     track.addEventListener("transitionend", () => {
-
       isAnimating = false;
 
       if (index >= slides.length + slidesPerView) {
         track.style.transition = "none";
         index = slidesPerView;
-        track.style.transform = `translateX(-${index * slideWidth()}px)`;
+        track.style.transform = `translateX(-${index * getSlideStride()}px)`;
         void track.offsetHeight;
         track.style.transition = "transform .4s ease";
       }
@@ -330,7 +343,7 @@ function initSliders() {
       if (index < slidesPerView) {
         track.style.transition = "none";
         index = slides.length + index;
-        track.style.transform = `translateX(-${index * slideWidth()}px)`;
+        track.style.transform = `translateX(-${index * getSlideStride()}px)`;
         void track.offsetHeight;
         track.style.transition = "transform .4s ease";
       }
@@ -340,21 +353,15 @@ function initSliders() {
       const arrowsContainer = carousel.querySelector(".arrows-container");
 
       const prevButton = document.createElement("button");
-
       prevButton.className = "prev car-btn";
       prevButton.innerHTML = "&larr;";
-
       prevButton.addEventListener("click", prev);
-
       arrowsContainer.appendChild(prevButton);
 
       const nextButton = document.createElement("button");
-
       nextButton.className = "next car-btn";
       nextButton.innerHTML = "&rarr;";
-
       nextButton.addEventListener("click", next);
-
       arrowsContainer.appendChild(nextButton);
     }
 
@@ -371,32 +378,26 @@ function initSliders() {
     track.addEventListener("pointerdown", e => {
       startX = e.clientX;
       isDragging = true;
-
       carousel.style.cursor = "grabbing";
       track.style.transition = "none";
     });
 
     window.addEventListener("pointermove", e => {
       if (!isDragging) return;
-
       currentX = e.clientX;
       const diff = currentX - startX;
-
-      track.style.transform =
-        `translateX(${-index * slideWidth() + diff}px)`;
+      track.style.transform = `translateX(${-index * getSlideStride() + diff}px)`;
     });
 
     window.addEventListener("pointerup", e => {
       if (!isDragging) return;
-
       isDragging = false;
       carousel.style.cursor = "grab";
 
       const diff = e.clientX - startX;
       if (diff < -100) {
         index++;
-      }
-      else if (diff > 100) {
+      } else if (diff > 100) {
         index--;
       }
 
@@ -405,14 +406,9 @@ function initSliders() {
     });
 
     dotsContainer?.addEventListener("click", e => {
-
       if (!e.target.classList.contains("dot")) return;
-
-      const dots =
-        [...dotsContainer.querySelectorAll(".dot")];
-
+      const dots = [...dotsContainer.querySelectorAll(".dot")];
       index = dots.indexOf(e.target) + slidesPerView;
-
       updateSlider();
       restartAutoSlide();
     });
