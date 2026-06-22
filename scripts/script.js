@@ -96,15 +96,18 @@ function validate(event) {
     </div>
     `;
     document.body.appendChild(formModal);
+    document.body.style.overflow = "hidden";
 
     const closeBtn = document.querySelector(".close-modal");
     closeBtn.addEventListener("click", () => {
       formModal.remove();
+      document.body.style.overflow = "";
     });
 
     window.addEventListener("click", (e) => {
       if (e.target === formModal) {
         formModal.remove();
+        document.body.style.overflow = "";
       }
     });
 
@@ -193,15 +196,18 @@ function validate(event) {
     </div>
     `;
     document.body.appendChild(formModal);
+    document.body.style.overflow = "hidden"
 
     const closeBtn = document.querySelector(".close-modal");
     closeBtn.addEventListener("click", () => {
       formModal.remove();
+      document.body.style.overflow = ""
     });
 
     window.addEventListener("click", (e) => {
       if (e.target === formModal) {
         formModal.remove();
+        document.body.style.overflow = ""
       }
     });
 
