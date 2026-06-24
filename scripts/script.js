@@ -220,9 +220,8 @@ function validate(event) {
 }
 
 // Carousel Logic
-
 function initSliders() {
-  document.querySelectorAll(".carousel").forEach(carousel => {
+  document.querySelectorAll(".carousel").forEach((carousel) => {
     if (carousel.dataset.initialized) return;
     carousel.dataset.initialized = "true";
 
@@ -254,9 +253,10 @@ function initSliders() {
       // Gallery Layout
       track.style.gap = `${gapPercent}%`;
       const activeAreaPercent = 100 - previewPercent - gapPercent;
-      const totalGapsInsideActiveArea = slidesPerView > 1 ? slidesPerView - 1 : 0;
+      const totalGapsInsideActiveArea =
+        slidesPerView > 1 ? slidesPerView - 1 : 0;
 
-      track.querySelectorAll(".slide").forEach(slide => {
+      track.querySelectorAll(".slide").forEach((slide) => {
         if (slidesPerView > 1) {
           slide.style.width = `calc((${activeAreaPercent}% - (${gapPercent}% * ${totalGapsInsideActiveArea})) / ${slidesPerView})`;
         } else {
@@ -265,8 +265,8 @@ function initSliders() {
       });
     } else {
       // Testimonial Layout (Completely Untouched)
-      const gapSize = window.innerWidth > 700 ? '20px' : '10px';
-      track.querySelectorAll(".slide").forEach(slide => {
+      const gapSize = window.innerWidth > 700 ? "20px" : "10px";
+      track.querySelectorAll(".slide").forEach((slide) => {
         if (slidesPerView > 1) {
           slide.style.width = `calc((100% - (${gapSize} * ${slidesPerView - 1})) / ${slidesPerView})`;
         } else {
@@ -286,7 +286,7 @@ function initSliders() {
       slides.forEach((_, i) => {
         dotsContainer.insertAdjacentHTML(
           "beforeend",
-          `<button class="dot ${i === 0 ? "dot-active" : ""}"></button>`
+          `<button class="dot ${i === 0 ? "dot-active" : ""}"></button>`,
         );
       });
     }
@@ -296,7 +296,9 @@ function initSliders() {
       const trackSlides = track.querySelectorAll(".slide");
       if (trackSlides.length > 1) {
         // getBoundingClientRect provides exact float values, completely eliminating CSS rounding drift
-        return Math.abs(trackSlides[1].getBoundingClientRect().left - trackSlides[0].getBoundingClientRect().left);
+        return Math.abs(
+          trackSlides[1].getBoundingClientRect().left - trackSlides[0].getBoundingClientRect().left,
+        );
       }
       return trackSlides[0].getBoundingClientRect().width;
     }
@@ -316,7 +318,7 @@ function initSliders() {
 
       const dots = dotsContainer?.querySelectorAll(".dot");
       if (dots?.length) {
-        dots.forEach(dot => dot.classList.remove("dot-active"));
+        dots.forEach((dot) => dot.classList.remove("dot-active"));
         if (dots[dotIndex]) dots[dotIndex].classList.add("dot-active");
       }
     }
@@ -381,21 +383,21 @@ function initSliders() {
       startAutoSlide();
     }
 
-    track.addEventListener("pointerdown", e => {
+    track.addEventListener("pointerdown", (e) => {
       startX = e.clientX;
       isDragging = true;
       carousel.style.cursor = "grabbing";
       track.style.transition = "none";
     });
 
-    window.addEventListener("pointermove", e => {
+    window.addEventListener("pointermove", (e) => {
       if (!isDragging) return;
       currentX = e.clientX;
       const diff = currentX - startX;
       track.style.transform = `translateX(${-index * getSlideStride() + diff}px)`;
     });
 
-    window.addEventListener("pointerup", e => {
+    window.addEventListener("pointerup", (e) => {
       if (!isDragging) return;
       isDragging = false;
       carousel.style.cursor = "grab";
@@ -411,7 +413,7 @@ function initSliders() {
       restartAutoSlide();
     });
 
-    dotsContainer?.addEventListener("click", e => {
+    dotsContainer?.addEventListener("click", (e) => {
       if (!e.target.classList.contains("dot")) return;
       const dots = [...dotsContainer.querySelectorAll(".dot")];
       index = dots.indexOf(e.target) + slidesPerView;
